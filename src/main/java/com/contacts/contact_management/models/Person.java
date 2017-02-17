@@ -274,7 +274,10 @@ public class Person extends BaseEntity implements Serializable {
 	public String toString() {
 		return "Person [firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender + ", dob=" + dob
 				+ ", phoneNumber=" + phoneNumber + ", alternatePhoneNumber=" + alternatePhoneNumber + ", emailId="
-				+ emailId + ", alternateEmailId=" + alternateEmailId + ", maritalStatus=" + maritalStatus + "]";
+				+ emailId + ", alternateEmailId=" + alternateEmailId + ", maritalStatus=" + maritalStatus + ", getId()="
+				+ getId() + ", getVersion()=" + getVersion() + ", getCreatedUser()=" + getCreatedUser()
+				+ ", getUpdatedUser()=" + getUpdatedUser() + ", getCreatedDate()=" + getCreatedDate()
+				+ ", getUpdatedDate()=" + getUpdatedDate() + "]";
 	}
 
 }

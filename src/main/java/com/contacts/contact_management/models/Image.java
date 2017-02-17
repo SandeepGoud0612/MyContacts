@@ -7,10 +7,12 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 
 /**
  * @author Sandeep
  */
+@Entity
 public class Image extends BaseEntity implements Serializable {
 	
 	/**
@@ -91,7 +93,10 @@ public class Image extends BaseEntity implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Image [image=" + Arrays.toString(image) + ", tag=" + tag + "]";
+		return "Image [image=" + Arrays.toString(image) + ", tag=" + tag + ", getId()=" + getId() + ", getVersion()="
+				+ getVersion() + ", getCreatedUser()=" + getCreatedUser() + ", getUpdatedUser()=" + getUpdatedUser()
+				+ ", getCreatedDate()=" + getCreatedDate() + ", getUpdatedDate()=" + getUpdatedDate() + "]";
 	}
+	
 	
 }
