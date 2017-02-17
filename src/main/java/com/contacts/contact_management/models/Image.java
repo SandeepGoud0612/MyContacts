@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 /**
  * @author Sandeep
  */
-@Entity
+@Entity(name="IMAGE")
 public class Image extends BaseEntity implements Serializable {
 	
 	/**

@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 /**
  * @author Manoj
  */
-@Entity
+@Entity(name="ADDRESS")
 public class Address extends BaseEntity implements Serializable {
 
 	/**
