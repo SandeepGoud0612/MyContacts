@@ -8,26 +8,46 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * @author Sindhu
  */
-@Entity(name="OCCASION")
+@Entity(name = "OCCASION")
 public class Occasion extends BaseEntity implements Serializable {
-	
+
 	/**
 	 * Default Serial Version UID
 	 */
 	private static final long serialVersionUID = -1573642778403291568L;
 
-	@Column(name="OCCASION_NAME")
+	@Column(name = "OCCASION_NAME", nullable = false)
 	private String name;
-	
-	@Column(name="OCCASION_DATE")
+
+	@Column(name = "OCCASION_DATE", nullable = false)
 	private Date date;
-	
-	@Column(name="REMINDME")
+
+	@Column(name = "REMINDME", nullable = false)
 	private Boolean remindMe;
+
+	@ManyToOne
+	@JoinColumn(name = "PERSON_ID", nullable = false)
+	private Person person;
+	
+	/**
+	 * @return the person
+	 */
+	public Person getPerson() {
+		return person;
+	}
+
+	/**
+	 * @param person the person to set
+	 */
+	public void setPerson(final Person person) {
+		this.person = person;
+	}
 
 	/**
 	 * @return the name
@@ -37,9 +57,10 @@ public class Occasion extends BaseEntity implements Serializable {
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -51,9 +72,10 @@ public class Occasion extends BaseEntity implements Serializable {
 	}
 
 	/**
-	 * @param date the date to set
+	 * @param date
+	 *            the date to set
 	 */
-	public void setDate(Date date) {
+	public void setDate(final Date date) {
 		this.date = date;
 	}
 
@@ -65,21 +87,11 @@ public class Occasion extends BaseEntity implements Serializable {
 	}
 
 	/**
-	 * @param remindMe the remindMe to set
+	 * @param remindMe
+	 *            the remindMe to set
 	 */
-	public void setRemindMe(Boolean remindMe) {
+	public void setRemindMe(final Boolean remindMe) {
 		this.remindMe = remindMe;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Occasion [name=" + name + ", date=" + date + ", remindMe=" + remindMe + ", getId()=" + getId()
-				+ ", getVersion()=" + getVersion() + ", getCreatedUser()=" + getCreatedUser() + ", getUpdatedUser()="
-				+ getUpdatedUser() + ", getCreatedDate()=" + getCreatedDate() + ", getUpdatedDate()=" + getUpdatedDate()
-				+ "]";
-	}
-	
 }

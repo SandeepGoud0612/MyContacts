@@ -4,27 +4,32 @@
 package com.contacts.contact_management.models;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  * @author Sandeep
  */
-@Entity(name="IMAGE")
+@Entity(name = "IMAGE")
 public class Image extends BaseEntity implements Serializable {
-	
+
 	/**
 	 * Default Serial Version UID
 	 */
 	private static final long serialVersionUID = -6741704416876382225L;
 
-	@Column(name="IMAGE")
+	@Column(name = "IMAGE", nullable = false)
 	private byte[] image;
-	
-	@Column(name="TAG")
+
+	@Column(name = "TAG", nullable = false)
 	private String tag;
+
+	@OneToOne
+	@JoinColumn(name = "PERSON_ID", nullable = false)
+	private Person person;
 
 	/**
 	 * @return the image
@@ -34,9 +39,10 @@ public class Image extends BaseEntity implements Serializable {
 	}
 
 	/**
-	 * @param image the image to set
+	 * @param image
+	 *            the image to set
 	 */
-	public void setImage(byte[] image) {
+	public void setImage(final byte[] image) {
 		this.image = image;
 	}
 
@@ -48,55 +54,11 @@ public class Image extends BaseEntity implements Serializable {
 	}
 
 	/**
-	 * @param tag the tag to set
+	 * @param tag
+	 *            the tag to set
 	 */
-	public void setTag(String tag) {
+	public void setTag(final String tag) {
 		this.tag = tag;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + Arrays.hashCode(image);
-		result = prime * result + ((tag == null) ? 0 : tag.hashCode());
-		return result;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Image other = (Image) obj;
-		if (!Arrays.equals(image, other.image))
-			return false;
-		if (tag == null) {
-			if (other.tag != null)
-				return false;
-		} else if (!tag.equals(other.tag))
-			return false;
-		return true;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Image [image=" + Arrays.toString(image) + ", tag=" + tag + ", getId()=" + getId() + ", getVersion()="
-				+ getVersion() + ", getCreatedUser()=" + getCreatedUser() + ", getUpdatedUser()=" + getUpdatedUser()
-				+ ", getCreatedDate()=" + getCreatedDate() + ", getUpdatedDate()=" + getUpdatedDate() + "]";
-	}
-	
-	
 }
