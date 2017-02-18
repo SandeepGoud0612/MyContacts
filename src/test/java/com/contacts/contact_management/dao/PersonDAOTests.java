@@ -42,7 +42,7 @@ public class PersonDAOTests {
 	@Autowired
 	private PersonDAO personDAO;
 
-	//@Test
+	@Test
 	public void createPerson() {
 		Person person = new Person();
 		person.setFirstName("FirstName createPerson");
@@ -57,7 +57,7 @@ public class PersonDAOTests {
 		personDAO.save(person);
 	}
 
-	// @Test
+	@Test
 	public void createPersonWithInvalidEmailId() {
 		Person person = new Person();
 		person.setFirstName("FirstName createPersonWithInvalidEmailId");
@@ -72,7 +72,7 @@ public class PersonDAOTests {
 		personDAO.save(person);
 	}
 
-	// @Test
+	@Test
 	public void createPersonWithInvalidPhoneNumber() {
 		Person person = new Person();
 		person.setFirstName("FirstName createPersonWithInvalidEmailId");
@@ -87,7 +87,7 @@ public class PersonDAOTests {
 		personDAO.save(person);
 	}
 
-	// @Test
+	@Test
 	public void createPersonFirstNameEmpty() {
 		Person person = new Person();
 		person.setLastName("LastName1 createPersonFirstNameEmpty");
@@ -130,7 +130,7 @@ public class PersonDAOTests {
 		personDAO.save(person);
 	}
 
-	// @Test
+	@Test
 	public void findPersonById() {
 		Person person = new Person();
 		person.setFirstName("FirstName findPersonById");
@@ -150,7 +150,7 @@ public class PersonDAOTests {
 		log.info(person1);
 	}
 
-	// @Test
+	@Test
 	public void updatePerson() {
 		Person person = new Person();
 		person.setFirstName("FirstName updatePerson");
@@ -174,7 +174,7 @@ public class PersonDAOTests {
 		log.info(person1);
 	}
 
-	// @Test
+	@Test
 	public void deletePerson() {
 		Person person = new Person();
 		person.setFirstName("FirstName deletePerson");
@@ -193,7 +193,7 @@ public class PersonDAOTests {
 		personDAO.delete(id);
 	}
 
-	// @Test
+	@Test
 	public void findAll() {
 		List<Person> persons = personDAO.findAll();
 		for (Person person : persons) {
