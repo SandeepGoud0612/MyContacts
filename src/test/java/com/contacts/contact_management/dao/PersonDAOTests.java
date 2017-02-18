@@ -66,6 +66,7 @@ public class PersonDAOTests {
 		createPerson();
 		Person person = personDAO.findOne(4L);
 		person.setFirstName(person.getFirstName() + "Updated");
+		person.setUpdatedDate(Date.valueOf(LocalDate.now()));
 		personDAO.save(person);
 		log.info(person);
 	}
