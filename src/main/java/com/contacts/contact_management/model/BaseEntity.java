@@ -2,7 +2,7 @@
  * This source code is property of MyContacts Project Team.
  * This is a BaseEntity which has common properties used by other entities.
  */
-package com.contacts.contact_management.models;
+package com.contacts.contact_management.model;
 
 import java.io.Serializable;
 import java.util.Date;
