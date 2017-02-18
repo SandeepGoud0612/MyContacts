@@ -9,6 +9,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Manoj
@@ -22,25 +25,35 @@ public class Address extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -5216627962374742197L;
 
 	@Column(name = "ADDRESS_LINE1", nullable = false)
+	@NotNull
 	private String addressLine1;
 
 	@Column(name = "ADDRESS_LINE2")
 	private String addressLine2;
 
 	@Column(name = "CITY", nullable = false)
+	@NotNull
 	private String city;
 
 	@Column(name = "STATE", nullable = false)
+	@NotNull
 	private String state;
 
 	@Column(name = "COUNTRY", nullable = false)
+	@NotNull
 	private String country;
+	
+	@Transient
+	private static final long ZIPCODEMAX = 99999L;
 
-	@Column(name = "ZIPCODE", nullable = false)
+	@Column(name = "ZIPCODE", nullable = false, length = 5)
+	@NotNull
+	@Max(ZIPCODEMAX)
 	private Long zipCode;
 
 	@ManyToOne
 	@JoinColumn(name = "PERSON_ID", nullable = false)
+	@NotNull
 	private Person person;
 
 	/**
@@ -133,9 +146,10 @@ public class Address extends BaseEntity implements Serializable {
 	}
 
 	/**
-	 * @param person the person to set
+	 * @param person
+	 *            the person to set
 	 */
-	public void setPerson(Person person) {
+	public void setPerson(final Person person) {
 		this.person = person;
 	}
 
@@ -146,21 +160,10 @@ public class Address extends BaseEntity implements Serializable {
 	public void setZipCode(final Long zipCode) {
 		this.zipCode = zipCode;
 	}
-	
-	
-	
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Address [addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", city=" + city
-				+ ", state=" + state + ", country=" + country + ", zipCode=" + zipCode + ", person=" + person
-				+ ", getId()=" + getId() + ", getVersion()=" + getVersion() + "]";
-	}
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -177,11 +180,13 @@ public class Address extends BaseEntity implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj)
 			return true;
 		if (!super.equals(obj))
@@ -226,6 +231,15 @@ public class Address extends BaseEntity implements Serializable {
 			return false;
 		return true;
 	}
-	
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Address [addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", city=" + city
+				+ ", state=" + state + ", country=" + country + ", zipCode=" + zipCode + ", getId()=" + getId()
+				+ ", getVersion()=" + getVersion() + "]";
+	}
+	
 }

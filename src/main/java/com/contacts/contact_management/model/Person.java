@@ -17,6 +17,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.Email;
 
 import com.contacts.contact_management.enums.Gender;
 
@@ -26,36 +34,49 @@ import com.contacts.contact_management.enums.Gender;
  */
 @Entity(name = "PERSON")
 public class Person extends BaseEntity implements Serializable {
-
+	
 	/**
 	 * Default Serial Version UID
 	 */
 	private static final long serialVersionUID = 1848863001342070460L;
 
 	@Column(name = "FIRST_NAME", length = 50, nullable = false)
+	@NotNull
 	private String firstName;
 
 	@Column(name = "LAST_NAME", length = 50, nullable = false)
+	@NotNull
 	private String lastName;
 
 	@Column(name = "GENDER", length = 10, nullable = false)
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 
 	@Column(name = "DOB")
 	@Temporal(TemporalType.DATE)
+	@Past
 	private Date dob;
+	
+	@Transient
+	private static final long PHONEMAX = 999999999999L;
 
-	@Column(name = "PHONE_NUMBER", length = 20, nullable = false)
-	private String phoneNumber;
+	@Column(name = "PHONE_NUMBER", nullable = false, length = 15)
+	@NotNull
+	@Max(PHONEMAX)
+	private Long phoneNumber;
 
-	@Column(name = "ALTERNATE_PHONE_NUMBER", length = 20)
-	private String alternatePhoneNumber;
+	@Column(name = "ALTERNATE_PHONE_NUMBER",length = 15)
+	@Max(PHONEMAX)
+	private Long alternatePhoneNumber;
 
 	@Column(name = "EMAIL_ID", length = 50, nullable = false)
+	@NotNull
+	@Email
 	private String emailId;
 
 	@Column(name = "ALTERNATE_EMAIL_ID", length = 50)
+	@Email
 	private String alternateEmailId;
 
 	@Column(name = "MARITAL_STATUS")
@@ -65,11 +86,13 @@ public class Person extends BaseEntity implements Serializable {
 	private Image image;
 
 	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	private List<Address> addressList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	private List<Occasion> occasionList = new ArrayList<>();
-	
+
 	/**
 	 * @return the addressList
 	 */
@@ -178,7 +201,7 @@ public class Person extends BaseEntity implements Serializable {
 	/**
 	 * @return the phoneNumber
 	 */
-	public String getPhoneNumber() {
+	public Long getPhoneNumber() {
 		return phoneNumber;
 	}
 
@@ -186,14 +209,14 @@ public class Person extends BaseEntity implements Serializable {
 	 * @param phoneNumber
 	 *            the phoneNumber to set
 	 */
-	public void setPhoneNumber(final String phoneNumber) {
+	public void setPhoneNumber(final Long phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
 	/**
 	 * @return the alternatePhoneNumber
 	 */
-	public String getAlternatePhoneNumber() {
+	public Long getAlternatePhoneNumber() {
 		return alternatePhoneNumber;
 	}
 
@@ -201,7 +224,7 @@ public class Person extends BaseEntity implements Serializable {
 	 * @param alternatePhoneNumber
 	 *            the alternatePhoneNumber to set
 	 */
-	public void setAlternatePhoneNumber(final String alternatePhoneNumber) {
+	public void setAlternatePhoneNumber(final Long alternatePhoneNumber) {
 		this.alternatePhoneNumber = alternatePhoneNumber;
 	}
 
@@ -248,19 +271,6 @@ public class Person extends BaseEntity implements Serializable {
 	 */
 	public void setMaritalStatus(final Boolean maritalStatus) {
 		this.maritalStatus = maritalStatus;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Person [firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender + ", dob=" + dob
-				+ ", phoneNumber=" + phoneNumber + ", alternatePhoneNumber=" + alternatePhoneNumber + ", emailId="
-				+ emailId + ", alternateEmailId=" + alternateEmailId + ", maritalStatus=" + maritalStatus + ", getId()=" + getId()
-				+ ", getVersion()=" + getVersion() + "]";
 	}
 
 	/*
@@ -359,6 +369,20 @@ public class Person extends BaseEntity implements Serializable {
 		} else if (!phoneNumber.equals(other.phoneNumber))
 			return false;
 		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Person [firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender + ", dob=" + dob
+				+ ", phoneNumber=" + phoneNumber + ", alternatePhoneNumber=" + alternatePhoneNumber + ", emailId="
+				+ emailId + ", alternateEmailId=" + alternateEmailId + ", maritalStatus=" + maritalStatus + ", image="
+				+ image + ", addressList=" + addressList + ", occasionList=" + occasionList + ", getId()=" + getId()
+				+ ", getVersion()=" + getVersion() + "]";
 	}
 
 }
