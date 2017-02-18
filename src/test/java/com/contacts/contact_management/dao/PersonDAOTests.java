@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class PersonDAOTests {
 	@Autowired
 	private PersonDAO personDAO;
 
-	@Test
+	//@Test
 	public void createPerson() {
 		Person person = new Person();
 		person.setFirstName("FirstName createPerson");
@@ -92,6 +93,21 @@ public class PersonDAOTests {
 		person.setLastName("LastName1 createPersonFirstNameEmpty");
 		person.setGender(Gender.Male);
 		person.setDob(Date.valueOf(LocalDate.now()));
+		person.setEmailId("EmailId1@gmail.com");
+		person.setAlternateEmailId("AlternateEmailId1@gmail.com");
+		person.setPhoneNumber(911114567890L);
+		person.setAlternatePhoneNumber(912224567890L);
+		person.setMaritalStatus(false);
+		personDAO.save(person);
+	}
+	
+	@Test
+	public void createPersonInvalidDOB() {
+		Person person = new Person();
+		person.setFirstName("FirstName createPerson");
+		person.setLastName("LastName1 createPerson");
+		person.setGender(Gender.Male);
+		person.setDob(Date.valueOf(LocalDate.of(2017, Month.FEBRUARY, 28)));
 		person.setEmailId("EmailId1@gmail.com");
 		person.setAlternateEmailId("AlternateEmailId1@gmail.com");
 		person.setPhoneNumber(911114567890L);

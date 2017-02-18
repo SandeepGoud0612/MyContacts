@@ -19,6 +19,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Sandeep
@@ -39,12 +40,14 @@ public abstract class BaseEntity implements Serializable {
 	private Long version;
 
 	@Column(name = "CREATED_USER", length = 50)
+	@NotNull
 	private String createdUser;
 
 	@Column(name = "UPDATED_USER", length = 50)
 	private String updatedUser;
 
 	@Column(name = "CREATED_DATE")
+	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdDate;
 
