@@ -4,7 +4,7 @@
 package com.contacts.contact_management.dao;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
 
 import java.sql.Date;
 import java.time.Instant;
@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.contacts.contact_management.enums.Gender;
+import com.contacts.contact_management.model.Image;
 import com.contacts.contact_management.model.Person;
 import com.contacts.utils.MyLogger;
 
@@ -45,172 +45,78 @@ public class PersonDAOTests {
 	@Autowired
 	private PersonDAO personDAO;
 
-	@Test
+	//@Test
 	public void createPerson() {
-		Person person = new Person();
-		person.setFirstName("FirstName createPerson");
-		person.setLastName("LastName1 createPerson");
-		person.setGender(Gender.Male);
-		person.setDob(Date.valueOf(LocalDate.now()));
-		person.setEmailId("EmailId1@gmail.com");
-		person.setAlternateEmailId("AlternateEmailId1@gmail.com");
-		person.setPhoneNumber(911114567890L);
-		person.setAlternatePhoneNumber(912224567890L);
-		person.setMaritalStatus(false);
-		Person person1 = personDAO.save(person);
-		
-		assertEquals(person1.getFirstName(),"FirstName createPerson");
-	}
+		Person personTransient = TestUtils.getPersonObject("createPerson");
+		Person personPersisted = personDAO.save(personTransient);
 
-	@Test(expected=javax.validation.ConstraintViolationException.class)
-	public void createPersonWithInvalidEmailId() {
-		Person person = new Person();
-		person.setFirstName("FirstName createPersonWithInvalidEmailId");
-		person.setLastName("LastName1 createPersonWithInvalidEmailId");
-		person.setGender(Gender.Male);
-		person.setDob(Date.valueOf(LocalDate.now()));
-		person.setEmailId("EmailId1");
-		person.setAlternateEmailId("AlternateEmailId1");
-		person.setPhoneNumber(911114567890L);
-		person.setAlternatePhoneNumber(912224567890L);
-		person.setMaritalStatus(false);
-		Person person1 = personDAO.save(person);
-		
-		assertNull(person1);
-	}
-
-	@Test(expected=javax.validation.ConstraintViolationException.class)
-	public void createPersonWithInvalidPhoneNumber() {
-		Person person = new Person();
-		person.setFirstName("FirstName createPersonWithInvalidEmailId");
-		person.setLastName("LastName1 createPersonWithInvalidEmailId");
-		person.setGender(Gender.Male);
-		person.setDob(Date.valueOf(LocalDate.now()));
-		person.setEmailId("EmailId1");
-		person.setAlternateEmailId("AlternateEmailId1");
-		person.setPhoneNumber(9111145678904324324L);
-		person.setAlternatePhoneNumber(912224567890432434L);
-		person.setMaritalStatus(false);
-		Person person1 = personDAO.save(person);
-		
-		assertNull(person1);
-	}
-
-	@Test(expected=javax.validation.ConstraintViolationException.class)
-	public void createPersonInvalidFirstNameEmpty() {
-		Person person = new Person();
-		person.setLastName("LastName1 createPersonFirstNameEmpty");
-		person.setGender(Gender.Male);
-		person.setDob(Date.valueOf(LocalDate.now()));
-		person.setEmailId("EmailId1@gmail.com");
-		person.setAlternateEmailId("AlternateEmailId1@gmail.com");
-		person.setPhoneNumber(911114567890L);
-		person.setAlternatePhoneNumber(912224567890L);
-		person.setMaritalStatus(false);
-		Person person1 = personDAO.save(person);
-
-		assertNull(person1);
-	}
-
-	@Test(expected=javax.validation.ConstraintViolationException.class)
-	public void createPersonInvalidDOB() {
-		Person person = new Person();
-		person.setFirstName("FirstName createPerson");
-		person.setLastName("LastName1 createPerson");
-		person.setGender(Gender.Male);
-		person.setDob(Date.valueOf(LocalDate.of(2020, Month.FEBRUARY, 28)));
-		person.setEmailId("EmailId1@gmail.com");
-		person.setAlternateEmailId("AlternateEmailId1@gmail.com");
-		person.setPhoneNumber(911114567890L);
-		person.setAlternatePhoneNumber(912224567890L);
-		person.setMaritalStatus(false);
-		Person person1 = personDAO.save(person);
-
-		assertNull(person1);
+		assertNotNull(personPersisted);
+		assertEquals(personPersisted.getFirstName(), "FirstName createPerson");
 	}
 
 	@Test
+	public void createPersonWithImage() {
+		Person personTransient = TestUtils.getPersonObject("createPersonWithImage");
+		Image imageTransient = TestUtils.getImageObject("createPersonWithImage", "D:\\images\\image1.jpg");
+		imageTransient.setPerson(personTransient);
+		personTransient.setImage(imageTransient);
+		Person personPersisted = personDAO.save(personTransient);
+
+		assertNotNull(personPersisted);
+		assertNotNull(personPersisted.getImage());
+		assertEquals(personPersisted.getFirstName(), "FirstName createPersonWithImage");
+		assertEquals(personPersisted.getImage().getTag(), "Flower createPersonWithImage");
+	}
+
+	//@Test
 	public void createPersonDOBEmpty() {
-		Person person = new Person();
-		person.setFirstName("LastName1 createPersonDOBEmpty");
-		person.setLastName("LastName1 createPersonDOBEmpty");
-		person.setGender(Gender.Male);
-		person.setEmailId("EmailId1@gmail.com");
-		person.setAlternateEmailId("AlternateEmailId1@gmail.com");
-		person.setPhoneNumber(911114567890L);
-		person.setAlternatePhoneNumber(912224567890L);
-		person.setMaritalStatus(false);
-		Person person1 = personDAO.save(person);
-		
-		assertEquals(person1.getFirstName(), "LastName1 createPersonDOBEmpty");
+		Person personTransient = TestUtils.getPersonObject("createPersonDOBEmpty");
+		personTransient.setDob(null);
+		Person personPersisted = personDAO.save(personTransient);
+
+		assertNotNull(personPersisted);
+		assertEquals(personPersisted.getFirstName(), "FirstName createPersonDOBEmpty");
 	}
 
-	@Test
+	//@Test
 	public void findPersonById() {
-		Person person = new Person();
-		person.setFirstName("FirstName findPersonById");
-		person.setLastName("LastName1 findPersonById");
-		person.setGender(Gender.Male);
-		person.setDob(Date.valueOf(LocalDate.now()));
-		person.setEmailId("EmailId1@gmail.com");
-		person.setAlternateEmailId("AlternateEmailId1@gmail.com");
-		person.setPhoneNumber(911114567890L);
-		person.setAlternatePhoneNumber(912224567890L);
-		person.setMaritalStatus(false);
-		Long id = personDAO.save(person).getId();
+		Person personTransient = TestUtils.getPersonObject("findPersonById");
+		Person personPersisted = personDAO.save(personTransient);
 
-		Person person1 = personDAO.findOne(id);
-		person1.setAddressList(new ArrayList<>());
-		person1.setOccasionList(new ArrayList<>());
-		
-		assertEquals(person1.getFirstName(), "FirstName findPersonById");
+		Person personFromDB = personDAO.findOne(personPersisted.getId());
+		personFromDB.setAddressList(new ArrayList<>());
+		personFromDB.setOccasionList(new ArrayList<>());
+
+		assertNotNull(personFromDB);
+		assertEquals(personFromDB.getFirstName(), "FirstName findPersonById");
 	}
 
-	@Test
+	//@Test
 	public void updatePerson() {
-		Person person = new Person();
-		person.setFirstName("FirstName updatePerson");
-		person.setLastName("LastName1 updatePerson");
-		person.setGender(Gender.Male);
-		person.setDob(Date.valueOf(LocalDate.now()));
-		person.setEmailId("EmailId1@gmail.com");
-		person.setAlternateEmailId("AlternateEmailId1@gmail.com");
-		person.setPhoneNumber(911114567890L);
-		person.setAlternatePhoneNumber(912224567890L);
-		person.setMaritalStatus(false);
-		Long id = personDAO.save(person).getId();
+		Person personTransient = TestUtils.getPersonObject("updatePerson");
+		Person personPersisted = personDAO.save(personTransient);
 
-		Person person1 = personDAO.findOne(id);
-		person1.setFirstName(person.getFirstName() + " Updated");
+		Person personFromDB = personDAO.findOne(personPersisted.getId());
+		personFromDB.setFirstName(personFromDB.getFirstName() + " Updated");
 		LocalDateTime ldt = LocalDateTime.now();
 		Instant instant = ldt.toInstant(ZoneOffset.UTC);
-		person1.setUpdatedDate(Date.from(instant));
-		person1.setUpdatedUser("JavaTraining Update");
-		Person person2 = personDAO.save(person1);
-		
-		assertEquals(person2.getFirstName(), "FirstName updatePerson Updated");
+		personFromDB.setUpdatedDate(Date.from(instant));
+		personFromDB.setUpdatedUser("JavaTraining Update");
+		Person personFromDB2 = personDAO.save(personFromDB);
+
+		assertNotNull(personFromDB2);
+		assertEquals(personFromDB2.getFirstName(), "FirstName updatePerson Updated");
 	}
 
-	@Test
+	//@Test
 	public void deletePerson() {
-		Person person = new Person();
-		person.setFirstName("FirstName deletePerson");
-		person.setLastName("LastName1 deletePerson");
-		person.setGender(Gender.Male);
-		person.setDob(Date.valueOf(LocalDate.now()));
-		person.setEmailId("EmailId1@gmail.com");
-		person.setAlternateEmailId("AlternateEmailId1@gmail.com");
-		person.setPhoneNumber(911114567890L);
-		person.setAlternatePhoneNumber(912224567890L);
-		person.setMaritalStatus(false);
-		Long id = personDAO.save(person).getId();
-
-		log.info("Deleting Person " + id);
-
-		personDAO.delete(id);
+		Person personTransient = TestUtils.getPersonObject("updatePerson");
+		Person personPersisted = personDAO.save(personTransient);
+		personDAO.delete(personPersisted.getId());
+		log.info("Deleting Person " + personPersisted.getId());
 	}
 
-	@Test
+	//@Test
 	public void findAll() {
 		List<Person> persons = personDAO.findAll();
 		for (Person person : persons) {
@@ -218,6 +124,37 @@ public class PersonDAOTests {
 			person.setOccasionList(new ArrayList<>());
 			log.info(person);
 		}
+		assertNotNull(persons);
+	}
+
+	//@Test(expected = javax.validation.ConstraintViolationException.class)
+	public void createPersonWithInvalidEmailId() {
+		Person personTransient = TestUtils.getPersonObject("createPersonWithInvalidEmailId");
+		personTransient.setEmailId("EmailId");
+		personTransient.setAlternateEmailId("AlternateEmailId");
+		personDAO.save(personTransient);
+	}
+
+	//@Test(expected = javax.validation.ConstraintViolationException.class)
+	public void createPersonWithInvalidPhoneNumber() {
+		Person personTransient = TestUtils.getPersonObject("createPersonWithInvalidPhoneNumber");
+		personTransient.setPhoneNumber(9111145678904324324L);
+		personTransient.setAlternatePhoneNumber(912224567890432434L);
+		personDAO.save(personTransient);
+	}
+
+	//@Test(expected = javax.validation.ConstraintViolationException.class)
+	public void createPersonInvalidFirstNameEmpty() {
+		Person personTransient = TestUtils.getPersonObject("createPersonInvalidFirstNameEmpty");
+		personTransient.setFirstName(null);
+		personDAO.save(personTransient);
+	}
+
+	//@Test(expected = javax.validation.ConstraintViolationException.class)
+	public void createPersonInvalidDOB() {
+		Person personTransient = TestUtils.getPersonObject("createPersonInvalidDOB");
+		personTransient.setDob(Date.valueOf(LocalDate.of(2020, Month.FEBRUARY, 28)));
+		personDAO.save(personTransient);
 	}
 
 }
