@@ -7,11 +7,13 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.contacts.contact_management.dao.PersonDAO;
 import com.contacts.contact_management.model.Person;
+import com.contacts.utils.MyLogger;
 
 /**
  * @author Sandeep
@@ -21,36 +23,38 @@ import com.contacts.contact_management.model.Person;
 @Transactional
 public class PersonServiceImpl implements PersonService {
 	
+	private Logger log = MyLogger.getLogger();
+	
 	@Autowired
 	private PersonDAO personDAO;
 
 	@Override
 	public Person getPersonById(final Long id) {
-		// TODO Auto-generated method stub
+		log.debug("in getPersonById method");
 		return personDAO.findOne(id);
 	}
 
 	@Override
 	public List<Person> getAllPersons() {
-		// TODO Auto-generated method stub
+		log.debug("in getAllPersons method");
 		return personDAO.findAll();
 	}
 
 	@Override
 	public Person createPerson(final Person person) {
-		// TODO Auto-generated method stub
+		log.debug("in createPerson method");
 		return personDAO.save(person);
 	}
 
 	@Override
 	public Person updatePerson(final Person person) {
-		// TODO Auto-generated method stub
+		log.debug("in updatePerson method");
 		return personDAO.save(person);
 	}
 
 	@Override
 	public void deletePerson(final Long id) {
-		// TODO Auto-generated method stub
+		log.debug("in deletePerson method");
 		personDAO.delete(id);
 		
 	}
