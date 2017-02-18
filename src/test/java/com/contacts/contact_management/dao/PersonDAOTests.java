@@ -116,7 +116,7 @@ public class PersonDAOTests {
 		personDAO.save(person);
 	}
 
-	// @Test
+	@Test
 	public void createPersonDOBEmpty() {
 		Person person = new Person();
 		person.setFirstName("LastName1 createPersonDOBEmpty");
