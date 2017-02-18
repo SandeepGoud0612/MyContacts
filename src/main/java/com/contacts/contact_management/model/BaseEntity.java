@@ -5,7 +5,9 @@
 package com.contacts.contact_management.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -53,7 +55,9 @@ public abstract class BaseEntity implements Serializable {
 	@PrePersist
 	public void prePersist() {
 		if (createdDate == null) {
-			createdDate = java.sql.Date.valueOf(LocalDate.now());
+			LocalDateTime ldt = LocalDateTime.now();
+			Instant instant = ldt.toInstant(ZoneOffset.UTC);
+			createdDate = Date.from(instant);
 		}
 		if (createdUser == null) {
 			createdUser = "JavaTraining Create";

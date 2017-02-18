@@ -4,7 +4,10 @@
 package com.contacts.contact_management.dao;
 
 import java.sql.Date;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -86,7 +89,10 @@ public class PersonDAOTests {
 
 		Person person1 = personDAO.findOne(id);
 		person1.setFirstName(person.getFirstName() + " Updated");
-		person1.setUpdatedDate(Date.valueOf(LocalDate.now()));
+		LocalDateTime ldt = LocalDateTime.now();
+		Instant instant = ldt.toInstant(ZoneOffset.UTC);
+		person1.setUpdatedDate(Date.from(instant));
+		person1.setUpdatedUser("JavaTraining Update");
 		personDAO.save(person1);
 		log.info(person1);
 	}
