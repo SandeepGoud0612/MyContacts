@@ -28,7 +28,6 @@ import com.contacts.utils.MyLogger;
 public class PersonDAOTests {
 
 	private static Logger log;
-	private static Long index = 0L;
 
 	@BeforeClass
 	public static void setUp() {
@@ -40,41 +39,75 @@ public class PersonDAOTests {
 
 	@Test
 	public void createPerson() {
-		index++;
-		Person person1 = new Person();
-		person1.setFirstName("FirstName" + index);
-		person1.setLastName("LastName1" + index);
-		person1.setGender(Gender.Male);
-		person1.setDob(Date.valueOf(LocalDate.now()));
-		person1.setEmailId("EmailId1@gmail.com" + index);
-		person1.setAlternateEmailId("AlternateEmailId1@gmail.com" + index);
-		person1.setPhoneNumber("111-456-7890" + index);
-		person1.setAlternatePhoneNumber("222-456-7890" + index);
-		person1.setMaritalStatus(false);
-		personDAO.save(person1);
+		Person person = new Person();
+		person.setFirstName("FirstName createPerson");
+		person.setLastName("LastName1 createPerson");
+		person.setGender(Gender.Male);
+		person.setDob(Date.valueOf(LocalDate.now()));
+		person.setEmailId("EmailId1@gmail.com createPerson");
+		person.setAlternateEmailId("AlternateEmailId1@gmail.com createPerson");
+		person.setPhoneNumber("111-456-7890");
+		person.setAlternatePhoneNumber("222-456-7890");
+		person.setMaritalStatus(false);
+		personDAO.save(person);
 	}
 
 	@Test
 	public void findPersonById() {
-		createPerson();
-		Person person = personDAO.findOne(3L);
-		log.info(person);
+		Person person = new Person();
+		person.setFirstName("FirstName findPersonById");
+		person.setLastName("LastName1 findPersonById");
+		person.setGender(Gender.Male);
+		person.setDob(Date.valueOf(LocalDate.now()));
+		person.setEmailId("EmailId1@gmail.com findPersonById");
+		person.setAlternateEmailId("AlternateEmailId1@gmail.com findPersonById");
+		person.setPhoneNumber("111-456-7890");
+		person.setAlternatePhoneNumber("222-456-7890");
+		person.setMaritalStatus(false);
+		Long id = personDAO.save(person).getId();
+
+		Person person1 = personDAO.findOne(id);
+		log.info(person1);
 	}
 
 	@Test
 	public void updatePerson() {
-		createPerson();
-		Person person = personDAO.findOne(4L);
-		person.setFirstName(person.getFirstName() + "Updated");
-		person.setUpdatedDate(Date.valueOf(LocalDate.now()));
-		personDAO.save(person);
-		log.info(person);
+		Person person = new Person();
+		person.setFirstName("FirstName updatePerson");
+		person.setLastName("LastName1 updatePerson");
+		person.setGender(Gender.Male);
+		person.setDob(Date.valueOf(LocalDate.now()));
+		person.setEmailId("EmailId1@gmail.com updatePerson");
+		person.setAlternateEmailId("AlternateEmailId1@gmail.com updatePerson");
+		person.setPhoneNumber("111-456-7890");
+		person.setAlternatePhoneNumber("222-456-7890");
+		person.setMaritalStatus(false);
+		Long id = personDAO.save(person).getId();
+
+		Person person1 = personDAO.findOne(id);
+		person1.setFirstName(person.getFirstName() + " Updated");
+		person1.setUpdatedDate(Date.valueOf(LocalDate.now()));
+		personDAO.save(person1);
+		log.info(person1);
 	}
 
 	@Test
 	public void deletePerson() {
-		createPerson();
-		personDAO.delete(5L);
+		Person person = new Person();
+		person.setFirstName("FirstName deletePerson");
+		person.setLastName("LastName1 deletePerson");
+		person.setGender(Gender.Male);
+		person.setDob(Date.valueOf(LocalDate.now()));
+		person.setEmailId("EmailId1@gmail.com deletePerson");
+		person.setAlternateEmailId("AlternateEmailId1@gmail.com deletePerson");
+		person.setPhoneNumber("111-456-7890");
+		person.setAlternatePhoneNumber("222-456-7890");
+		person.setMaritalStatus(false);
+		Long id = personDAO.save(person).getId();
+
+		log.info("Deleting Person " + id);
+
+		personDAO.delete(id);
 	}
 
 	@Test
