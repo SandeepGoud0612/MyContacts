@@ -36,7 +36,7 @@ import com.contacts.utils.MyLogger;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Rollback(true) 
+@Rollback(true)
 public class PersonDAOTests {
 
 	private static Logger log;
@@ -54,7 +54,7 @@ public class PersonDAOTests {
 	public void createPerson() {
 		Person personTransient = TestUtils.getPersonObject("createPerson");
 		Person personPersisted = personDAO.save(personTransient);
-		
+
 		assertNotNull(personPersisted);
 		assertEquals(personPersisted.getFirstName(), "FirstName createPerson");
 	}
@@ -73,10 +73,10 @@ public class PersonDAOTests {
 		assertEquals(personPersisted.getFirstName(), "FirstName createPersonWithImage");
 		assertEquals(personPersisted.getImage().getTag(), "Flower createPersonWithImage");
 	}
-	
+
 	@Ignore
 	@Test
-	public void deleteImageFromPerson(){
+	public void deleteImageFromPerson() {
 		Person personTransient = TestUtils.getPersonObject("deleteImageFromPerson");
 		Image imageTransient = TestUtils.getImageObject("deleteImageFromPerson", "D:\\images\\image1.jpg");
 		imageTransient.setPerson(personTransient);
@@ -85,32 +85,32 @@ public class PersonDAOTests {
 
 		assertNotNull(personPersisted);
 		assertNotNull(personPersisted.getImage());
-		assertEquals(personPersisted.getFirstName(), "FirstName createPersonWithImage");
-		assertEquals(personPersisted.getImage().getTag(), "Flower createPersonWithImage");
-		
+		assertEquals(personPersisted.getFirstName(), "FirstName deleteImageFromPerson");
+		assertEquals(personPersisted.getImage().getTag(), "Flower deleteImageFromPerson");
+
 		personPersisted.getImage().setPerson(null);
 		personPersisted.setImage(null);
 		Person personUpdated = personDAO.save(personPersisted);
 		assertNotNull(personUpdated);
 		assertNull(personUpdated.getImage());
 	}
-	
-	    //@Ignore
-		@Test
-		public void deletePersonWithImage(){
-			Person personTransient = TestUtils.getPersonObject("deleteImageFromPerson");
-			Image imageTransient = TestUtils.getImageObject("deleteImageFromPerson", "D:\\images\\image1.jpg");
-			imageTransient.setPerson(personTransient);
-			personTransient.setImage(imageTransient);
-			Person personPersisted = personDAO.save(personTransient);
 
-			assertNotNull(personPersisted);
-			assertNotNull(personPersisted.getImage());
-			assertEquals(personPersisted.getFirstName(), "FirstName createPersonWithImage");
-			assertEquals(personPersisted.getImage().getTag(), "Flower createPersonWithImage");
-			
-			personDAO.delete(personPersisted.getId());
-		}
+	@Ignore
+	@Test
+	public void deletePersonWithImage() {
+		Person personTransient = TestUtils.getPersonObject("deletePersonWithImage");
+		Image imageTransient = TestUtils.getImageObject("deletePersonWithImage", "D:\\images\\image1.jpg");
+		imageTransient.setPerson(personTransient);
+		personTransient.setImage(imageTransient);
+		Person personPersisted = personDAO.save(personTransient);
+
+		assertNotNull(personPersisted);
+		assertNotNull(personPersisted.getImage());
+		assertEquals(personPersisted.getFirstName(), "FirstName deletePersonWithImage");
+		assertEquals(personPersisted.getImage().getTag(), "Flower deletePersonWithImage");
+
+		personDAO.delete(personPersisted.getId());
+	}
 
 	@Ignore
 	@Test

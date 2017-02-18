@@ -152,7 +152,7 @@ public class ImageDAOTests {
 		assertNotNull(imagePersisted.getPerson());
 		assertEquals(imagePersisted.getTag(), "Flower deleteImage");
 
-		imageDAO.delete(imagePersisted.getId());
+		imageDAO.delete(imagePersisted);
 		log.info("Image deleted " + imagePersisted.getId());
 	}
 
