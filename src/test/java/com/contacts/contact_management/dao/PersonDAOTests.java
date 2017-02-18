@@ -3,6 +3,9 @@
  */
 package com.contacts.contact_management.dao;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import java.sql.Date;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -54,10 +57,12 @@ public class PersonDAOTests {
 		person.setPhoneNumber(911114567890L);
 		person.setAlternatePhoneNumber(912224567890L);
 		person.setMaritalStatus(false);
-		personDAO.save(person);
+		Person person1 = personDAO.save(person);
+		
+		assertEquals(person1.getFirstName(),"FirstName createPerson");
 	}
 
-	@Test
+	@Test(expected=javax.validation.ConstraintViolationException.class)
 	public void createPersonWithInvalidEmailId() {
 		Person person = new Person();
 		person.setFirstName("FirstName createPersonWithInvalidEmailId");
@@ -69,10 +74,12 @@ public class PersonDAOTests {
 		person.setPhoneNumber(911114567890L);
 		person.setAlternatePhoneNumber(912224567890L);
 		person.setMaritalStatus(false);
-		personDAO.save(person);
+		Person person1 = personDAO.save(person);
+		
+		assertNull(person1);
 	}
 
-	@Test
+	@Test(expected=javax.validation.ConstraintViolationException.class)
 	public void createPersonWithInvalidPhoneNumber() {
 		Person person = new Person();
 		person.setFirstName("FirstName createPersonWithInvalidEmailId");
@@ -84,11 +91,13 @@ public class PersonDAOTests {
 		person.setPhoneNumber(9111145678904324324L);
 		person.setAlternatePhoneNumber(912224567890432434L);
 		person.setMaritalStatus(false);
-		personDAO.save(person);
+		Person person1 = personDAO.save(person);
+		
+		assertNull(person1);
 	}
 
-	@Test
-	public void createPersonFirstNameEmpty() {
+	@Test(expected=javax.validation.ConstraintViolationException.class)
+	public void createPersonInvalidFirstNameEmpty() {
 		Person person = new Person();
 		person.setLastName("LastName1 createPersonFirstNameEmpty");
 		person.setGender(Gender.Male);
@@ -98,22 +107,26 @@ public class PersonDAOTests {
 		person.setPhoneNumber(911114567890L);
 		person.setAlternatePhoneNumber(912224567890L);
 		person.setMaritalStatus(false);
-		personDAO.save(person);
+		Person person1 = personDAO.save(person);
+
+		assertNull(person1);
 	}
-	
-	@Test
+
+	@Test(expected=javax.validation.ConstraintViolationException.class)
 	public void createPersonInvalidDOB() {
 		Person person = new Person();
 		person.setFirstName("FirstName createPerson");
 		person.setLastName("LastName1 createPerson");
 		person.setGender(Gender.Male);
-		person.setDob(Date.valueOf(LocalDate.of(2017, Month.FEBRUARY, 28)));
+		person.setDob(Date.valueOf(LocalDate.of(2020, Month.FEBRUARY, 28)));
 		person.setEmailId("EmailId1@gmail.com");
 		person.setAlternateEmailId("AlternateEmailId1@gmail.com");
 		person.setPhoneNumber(911114567890L);
 		person.setAlternatePhoneNumber(912224567890L);
 		person.setMaritalStatus(false);
-		personDAO.save(person);
+		Person person1 = personDAO.save(person);
+
+		assertNull(person1);
 	}
 
 	@Test
@@ -127,7 +140,9 @@ public class PersonDAOTests {
 		person.setPhoneNumber(911114567890L);
 		person.setAlternatePhoneNumber(912224567890L);
 		person.setMaritalStatus(false);
-		personDAO.save(person);
+		Person person1 = personDAO.save(person);
+		
+		assertEquals(person1.getFirstName(), "LastName1 createPersonDOBEmpty");
 	}
 
 	@Test
@@ -147,7 +162,8 @@ public class PersonDAOTests {
 		Person person1 = personDAO.findOne(id);
 		person1.setAddressList(new ArrayList<>());
 		person1.setOccasionList(new ArrayList<>());
-		log.info(person1);
+		
+		assertEquals(person1.getFirstName(), "FirstName findPersonById");
 	}
 
 	@Test
@@ -170,8 +186,9 @@ public class PersonDAOTests {
 		Instant instant = ldt.toInstant(ZoneOffset.UTC);
 		person1.setUpdatedDate(Date.from(instant));
 		person1.setUpdatedUser("JavaTraining Update");
-		personDAO.save(person1);
-		log.info(person1);
+		Person person2 = personDAO.save(person1);
+		
+		assertEquals(person2.getFirstName(), "FirstName updatePerson Updated");
 	}
 
 	@Test
@@ -197,6 +214,8 @@ public class PersonDAOTests {
 	public void findAll() {
 		List<Person> persons = personDAO.findAll();
 		for (Person person : persons) {
+			person.setAddressList(new ArrayList<>());
+			person.setOccasionList(new ArrayList<>());
 			log.info(person);
 		}
 	}
