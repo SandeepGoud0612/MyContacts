@@ -30,31 +30,31 @@ public class ImageServiceImpl implements ImageService {
 
 	@Override
 	public Image getImageById(final Long id) {
-		log.debug("In getImageById method.");
+		log.info("In getImageById method.");
 		return imageDAO.findOne(id);
 	}
 
 	@Override
 	public List<Image> getAllImages() {
-		log.debug("In getAllImages method.");
+		log.info("In getAllImages method.");
 		return imageDAO.findAll();
 	}
 
 	@Override
 	public Image createImage(final Image image) {
-		log.debug("In createImage method");
+		log.info("In createImage method");
 		return imageDAO.save(image);
 	}
 
 	@Override
 	public Image updateImage(final Image image) {
-		log.debug("In updateImage method");
+		log.info("In updateImage method");
 		return imageDAO.save(image);
 	}
 
 	@Override
 	public void deleteImage(final Long id) {
-		log.debug("In deleteImage method");
+		log.info("In deleteImage method");
 		imageDAO.delete(id);
 	}
 

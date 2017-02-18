@@ -30,31 +30,31 @@ public class OccasionServiceImpl implements OccasionService {
 
 	@Override
 	public Occasion getOccasionById(final Long id) {
-		log.debug("In getOccasionById method");
+		log.info("In getOccasionById method");
 		return occasionDAO.findOne(id);
 	}
 
 	@Override
 	public List<Occasion> getAllOccasions() {
-		log.debug("In getAllOccasions method");
+		log.info("In getAllOccasions method");
 		return occasionDAO.findAll();
 	}
 
 	@Override
 	public Occasion createOccasion(final Occasion occasion) {
-		log.debug("In createOccasion method");
+		log.info("In createOccasion method");
 		return occasionDAO.save(occasion);
 	}
 
 	@Override
 	public Occasion updateOccasion(final Occasion occasion) {
-		log.debug("In updateOccasion method");
+		log.info("In updateOccasion method");
 		return occasionDAO.save(occasion);
 	}
 
 	@Override
 	public void deleteOccasion(final Long id) {
-		log.debug("In deleteOccasion method");
+		log.info("In deleteOccasion method");
 		occasionDAO.delete(id);
 	}
 

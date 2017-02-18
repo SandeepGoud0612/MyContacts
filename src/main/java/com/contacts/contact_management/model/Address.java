@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author Manoj
@@ -24,23 +25,28 @@ public class Address extends BaseEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = -5216627962374742197L;
 
-	@Column(name = "ADDRESS_LINE1", nullable = false)
+	@Column(name = "ADDRESS_LINE1", nullable = false, length = 100)
 	@NotNull
+	@Size(min = 1, max = 100)
 	private String addressLine1;
 
 	@Column(name = "ADDRESS_LINE2")
+	@Size(min = 0, max = 100)
 	private String addressLine2;
 
-	@Column(name = "CITY", nullable = false)
+	@Column(name = "CITY", nullable = false, length = 100)
 	@NotNull
+	@Size(min = 1, max = 100)
 	private String city;
 
-	@Column(name = "STATE", nullable = false)
+	@Column(name = "STATE", nullable = false, length = 100)
 	@NotNull
+	@Size(min = 1, max = 100)
 	private String state;
 
-	@Column(name = "COUNTRY", nullable = false)
+	@Column(name = "COUNTRY", nullable = false, length = 100)
 	@NotNull
+	@Size(min = 1, max = 100)
 	private String country;
 	
 	@Transient

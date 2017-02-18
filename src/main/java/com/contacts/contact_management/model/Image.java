@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author Sandeep
@@ -28,8 +29,9 @@ public class Image extends BaseEntity implements Serializable {
 	@Lob
 	private byte[] image;
 
-	@Column(name = "TAG", nullable = false)
+	@Column(name = "TAG", nullable = false, length = 200)
 	@NotNull
+	@Size(min = 1, max = 200)
 	private String tag;
 
 	@OneToOne

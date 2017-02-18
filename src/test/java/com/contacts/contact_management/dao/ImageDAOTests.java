@@ -15,6 +15,7 @@ import java.nio.file.Files;
 
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,8 @@ public class ImageDAOTests {
 		log = MyLogger.getLogger();
 	}
 
-	//@Test
+	@Ignore
+	@Test
 	public void createImage() {
 		Image imageTransient = TestUtils.getImageObject("createImage", "D:\\images\\image1.jpg");
 		Person personTransient = TestUtils.getPersonObject("createImage");
@@ -63,7 +65,8 @@ public class ImageDAOTests {
 		assertEquals(imagePersisted.getTag(), "Flower createImage");
 	}
 
-	//@Test
+	@Ignore
+	@Test
 	public void getImageById() {
 		Image imageTransient = TestUtils.getImageObject("getImageById", "D:\\images\\image2.jpg");
 		Person personTransient = TestUtils.getPersonObject("getImageById");
@@ -89,7 +92,8 @@ public class ImageDAOTests {
 		}
 	}
 
-	//@Test
+	@Ignore
+	@Test
 	public void updateImage() {
 		Image imageTransient = TestUtils.getImageObject("updateImage", "D:\\images\\image3.jpg");
 		Person personTransient = TestUtils.getPersonObject("updateImage");
@@ -132,6 +136,7 @@ public class ImageDAOTests {
 		}
 	}
 
+	@Ignore
 	@Test
 	public void deleteImage() {
 		Image imageTransient = TestUtils.getImageObject("deleteImage", "D:\\images\\image1.jpg");

@@ -30,31 +30,31 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public Person getPersonById(final Long id) {
-		log.debug("in getPersonById method");
+		log.info("in getPersonById method");
 		return personDAO.findOne(id);
 	}
 
 	@Override
 	public List<Person> getAllPersons() {
-		log.debug("in getAllPersons method");
+		log.info("in getAllPersons method");
 		return personDAO.findAll();
 	}
 
 	@Override
 	public Person createPerson(final Person person) {
-		log.debug("in createPerson method");
+		log.info("in createPerson method");
 		return personDAO.save(person);
 	}
 
 	@Override
 	public Person updatePerson(final Person person) {
-		log.debug("in updatePerson method");
+		log.info("in updatePerson method");
 		return personDAO.save(person);
 	}
 
 	@Override
 	public void deletePerson(final Long id) {
-		log.debug("in deletePerson method");
+		log.info("in deletePerson method");
 		personDAO.delete(id);
 		
 	}

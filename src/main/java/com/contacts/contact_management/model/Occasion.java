@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 /**
  * @author Sindhu
@@ -24,13 +24,13 @@ public class Occasion extends BaseEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = -1573642778403291568L;
 
-	@Column(name = "OCCASION_NAME", nullable = false)
+	@Column(name = "OCCASION_NAME", nullable = false, length = 100)
 	@NotNull
+	@Size(min = 1, max = 100)
 	private String name;
 
 	@Column(name = "OCCASION_DATE", nullable = false)
 	@NotNull
-	@Past
 	private Date date;
 
 	@Column(name = "REMINDME", nullable = false)

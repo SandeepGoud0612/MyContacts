@@ -25,31 +25,31 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public Address getAddressById(final Long id) {
-		log.debug("In getAddressById method");
+		log.info("In getAddressById method");
 		return addressDAO.findOne(id);
 	}
 
 	@Override
 	public List<Address> getAllAddress() {
-		log.debug("In getAllAddress method");
+		log.info("In getAllAddress method");
 		return addressDAO.findAll();
 	}
 
 	@Override
 	public Address createAddress(final Address address) {
-		log.debug("In createAddress method");
+		log.info("In createAddress method");
 		return addressDAO.save(address);
 	}
 
 	@Override
 	public Address updateAddress(final Address address) {
-		log.debug("In updateAddress method");
+		log.info("In updateAddress method");
 		return addressDAO.save(address);
 	}
 
 	@Override
 	public void deleteAddress(final Long id) {
-		log.debug("In deleteAddress method");
+		log.info("In deleteAddress method");
 		addressDAO.delete(id);
 	}
 

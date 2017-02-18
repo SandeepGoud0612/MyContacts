@@ -21,6 +21,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -34,7 +35,7 @@ import com.contacts.contact_management.enums.Gender;
  */
 @Entity(name = "PERSON")
 public class Person extends BaseEntity implements Serializable {
-	
+
 	/**
 	 * Default Serial Version UID
 	 */
@@ -42,10 +43,12 @@ public class Person extends BaseEntity implements Serializable {
 
 	@Column(name = "FIRST_NAME", length = 50, nullable = false)
 	@NotNull
+	@Size(min = 1, max = 50)
 	private String firstName;
 
 	@Column(name = "LAST_NAME", length = 50, nullable = false)
 	@NotNull
+	@Size(min = 1, max = 50)
 	private String lastName;
 
 	@Column(name = "GENDER", length = 10, nullable = false)
@@ -57,7 +60,7 @@ public class Person extends BaseEntity implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Past
 	private Date dob;
-	
+
 	@Transient
 	private static final long PHONEMAX = 999999999999L;
 
@@ -66,23 +69,25 @@ public class Person extends BaseEntity implements Serializable {
 	@Max(PHONEMAX)
 	private Long phoneNumber;
 
-	@Column(name = "ALTERNATE_PHONE_NUMBER",length = 15)
+	@Column(name = "ALTERNATE_PHONE_NUMBER", length = 15)
 	@Max(PHONEMAX)
 	private Long alternatePhoneNumber;
 
 	@Column(name = "EMAIL_ID", length = 50, nullable = false)
 	@NotNull
 	@Email
+	@Size(min = 1, max = 50)
 	private String emailId;
 
 	@Column(name = "ALTERNATE_EMAIL_ID", length = 50)
 	@Email
+	@Size(min = 0, max = 50)
 	private String alternateEmailId;
 
 	@Column(name = "MARITAL_STATUS")
 	private Boolean maritalStatus;
 
-	@OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Image image;
 
 	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
