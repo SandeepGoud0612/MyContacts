@@ -11,8 +11,12 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.contacts.contact_management.enums.Gender;
 
@@ -35,9 +39,11 @@ public class Person extends BaseEntity implements Serializable {
 	private String lastName;
 
 	@Column(name = "GENDER", length = 10, nullable = false)
+	@Enumerated(EnumType.STRING)
 	private Gender gender;
 
 	@Column(name = "DOB")
+	@Temporal(TemporalType.DATE)
 	private Date dob;
 
 	@Column(name = "PHONE_NUMBER", length = 20, nullable = false)
@@ -60,7 +66,7 @@ public class Person extends BaseEntity implements Serializable {
 
 	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Address> addressList = new ArrayList<>();
-	
+
 	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Occasion> occasionList = new ArrayList<>();
 	
@@ -72,7 +78,8 @@ public class Person extends BaseEntity implements Serializable {
 	}
 
 	/**
-	 * @param addressList the addressList to set
+	 * @param addressList
+	 *            the addressList to set
 	 */
 	public void setAddressList(final List<Address> addressList) {
 		this.addressList = addressList;
@@ -86,7 +93,8 @@ public class Person extends BaseEntity implements Serializable {
 	}
 
 	/**
-	 * @param occasionList the occasionList to set
+	 * @param occasionList
+	 *            the occasionList to set
 	 */
 	public void setOccasionList(final List<Occasion> occasionList) {
 		this.occasionList = occasionList;
@@ -241,20 +249,23 @@ public class Person extends BaseEntity implements Serializable {
 	public void setMaritalStatus(final Boolean maritalStatus) {
 		this.maritalStatus = maritalStatus;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "Person [firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender + ", dob=" + dob
 				+ ", phoneNumber=" + phoneNumber + ", alternatePhoneNumber=" + alternatePhoneNumber + ", emailId="
-				+ emailId + ", alternateEmailId=" + alternateEmailId + ", maritalStatus=" + maritalStatus + ", image="
-				+ image + ", addressList=" + addressList + ", occasionList=" + occasionList + ", getId()=" + getId()
+				+ emailId + ", alternateEmailId=" + alternateEmailId + ", maritalStatus=" + maritalStatus + ", getId()=" + getId()
 				+ ", getVersion()=" + getVersion() + "]";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -276,11 +287,13 @@ public class Person extends BaseEntity implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj)
 			return true;
 		if (!super.equals(obj))
@@ -348,7 +361,4 @@ public class Person extends BaseEntity implements Serializable {
 		return true;
 	}
 
-	
-
-	
 }

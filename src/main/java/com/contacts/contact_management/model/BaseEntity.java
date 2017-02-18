@@ -5,6 +5,7 @@
 package com.contacts.contact_management.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,6 +13,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 /**
@@ -21,7 +25,7 @@ import javax.persistence.Version;
 public abstract class BaseEntity implements Serializable {
 
 	/**
-	 *  Default Serial Version UID
+	 * Default Serial Version UID
 	 */
 	private static final long serialVersionUID = 4573066122619473773L;
 
@@ -39,10 +43,22 @@ public abstract class BaseEntity implements Serializable {
 	private String updatedUser;
 
 	@Column(name = "CREATED_DATE")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdDate;
 
 	@Column(name = "UPDATED_DATE")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedDate;
+
+	@PrePersist
+	public void prePersist() {
+		if (createdDate == null) {
+			createdDate = java.sql.Date.valueOf(LocalDate.now());
+		}
+		if (createdUser == null) {
+			createdUser = "JavaTraining Create";
+		}
+	}
 
 	/**
 	 * @return the id
@@ -52,9 +68,10 @@ public abstract class BaseEntity implements Serializable {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -66,9 +83,10 @@ public abstract class BaseEntity implements Serializable {
 	}
 
 	/**
-	 * @param version the version to set
+	 * @param version
+	 *            the version to set
 	 */
-	public void setVersion(Long version) {
+	public void setVersion(final Long version) {
 		this.version = version;
 	}
 
@@ -80,9 +98,10 @@ public abstract class BaseEntity implements Serializable {
 	}
 
 	/**
-	 * @param createdUser the createdUser to set
+	 * @param createdUser
+	 *            the createdUser to set
 	 */
-	public void setCreatedUser(String createdUser) {
+	public void setCreatedUser(final String createdUser) {
 		this.createdUser = createdUser;
 	}
 
@@ -94,9 +113,10 @@ public abstract class BaseEntity implements Serializable {
 	}
 
 	/**
-	 * @param updatedUser the updatedUser to set
+	 * @param updatedUser
+	 *            the updatedUser to set
 	 */
-	public void setUpdatedUser(String updatedUser) {
+	public void setUpdatedUser(final String updatedUser) {
 		this.updatedUser = updatedUser;
 	}
 
@@ -108,9 +128,10 @@ public abstract class BaseEntity implements Serializable {
 	}
 
 	/**
-	 * @param createdDate the createdDate to set
+	 * @param createdDate
+	 *            the createdDate to set
 	 */
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(final Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -122,13 +143,16 @@ public abstract class BaseEntity implements Serializable {
 	}
 
 	/**
-	 * @param updatedDate the updatedDate to set
+	 * @param updatedDate
+	 *            the updatedDate to set
 	 */
-	public void setUpdatedDate(Date updatedDate) {
+	public void setUpdatedDate(final Date updatedDate) {
 		this.updatedDate = updatedDate;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -144,11 +168,13 @@ public abstract class BaseEntity implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -188,5 +214,5 @@ public abstract class BaseEntity implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }
