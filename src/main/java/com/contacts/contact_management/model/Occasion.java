@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Sindhu
  */
@@ -40,6 +42,7 @@ public class Occasion extends BaseEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "PERSON_ID", nullable = false)
 	@NotNull
+	@JsonIgnore
 	private Person person;
 
 	/**

@@ -88,14 +88,15 @@ public class Person extends BaseEntity implements Serializable {
 	private Boolean maritalStatus;
 
 	@OneToOne(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	private Image image;
 
 	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	private List<Address> addressList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	private List<Occasion> occasionList = new ArrayList<>();
 
 	/**

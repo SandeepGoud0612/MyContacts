@@ -51,7 +51,7 @@ public class PersonDAOTests {
 	@Autowired
 	private PersonDAO personDAO;
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void createPersonWithAllDetails() {
 		Person personTransient = TestUtils.getPersonObject("createPersonWithAllDetails");
@@ -92,7 +92,7 @@ public class PersonDAOTests {
 	public void updatePersonWithAllDetails() {
 		Person personTransient = TestUtils.getPersonObject("updatePersonWithAllDetails");
 
-		Image imageTransient = TestUtils.getImageObject("updatePersonWithAllDetails", "H:\\image1.jpg");
+		Image imageTransient = TestUtils.getImageObject("updatePersonWithAllDetails", "D:\\images\\image1.jpg");
 		imageTransient.setPerson(personTransient);
 		personTransient.setImage(imageTransient);
 
@@ -129,7 +129,7 @@ public class PersonDAOTests {
 	public void deletePersonWithAllDetails() {
 		Person personTransient = TestUtils.getPersonObject("deletePersonWithAllDetails");
 
-		Image imageTransient = TestUtils.getImageObject("deletePersonWithAllDetails", "H:\\image1.jpg");
+		Image imageTransient = TestUtils.getImageObject("deletePersonWithAllDetails", "D:\\images\\image1.jpg");
 		personTransient.setImage(imageTransient);
 		imageTransient.setPerson(personTransient);
 
@@ -167,7 +167,7 @@ public class PersonDAOTests {
 	public void deletePersonWithOneAddressOcasion() {
 		Person personTransient = TestUtils.getPersonObject("deletePersonWithOneAddressOcasion");
 
-		Image imageTransient = TestUtils.getImageObject("deletePersonWithOneAddressOcasion", "H:\\image1.jpg");
+		Image imageTransient = TestUtils.getImageObject("deletePersonWithOneAddressOcasion", "D:\\images\\image1.jpg");
 		personTransient.setImage(imageTransient);
 		imageTransient.setPerson(personTransient);
 

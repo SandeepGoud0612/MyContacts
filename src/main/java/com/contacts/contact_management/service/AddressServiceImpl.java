@@ -5,8 +5,11 @@ package com.contacts.contact_management.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.contacts.contact_management.dao.AddressDAO;
 import com.contacts.contact_management.model.Address;
@@ -16,6 +19,8 @@ import com.contacts.utils.MyLogger;
  * @author Sandeep
  *
  */
+@Service
+@Transactional
 public class AddressServiceImpl implements AddressService {
 
 	private Logger log = MyLogger.getLogger();

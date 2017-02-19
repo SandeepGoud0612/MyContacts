@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,7 +135,7 @@ public class AddressDAOTests {
 		assertEquals("Address Line 1 addressFromDB", addressFromDB.getAddressLine1());
 	}
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void deleteAddressById() {
 		Person personTransient = TestUtils.getPersonObject("deleteAddressById");

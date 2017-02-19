@@ -13,6 +13,8 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Sandeep
  */
@@ -37,6 +39,7 @@ public class Image extends BaseEntity implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "PERSON_ID", nullable = false)
 	@NotNull
+	@JsonIgnore
 	private Person person;
 
 	/**
