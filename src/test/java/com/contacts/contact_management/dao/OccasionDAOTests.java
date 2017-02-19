@@ -3,34 +3,21 @@
  */
 package com.contacts.contact_management.dao;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.sql.Date;
+import java.time.Instant;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.sql.Date;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.log4j.Logger;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-
-import com.contacts.contact_management.model.Image;
 import com.contacts.contact_management.model.Occasion;
 import com.contacts.contact_management.model.Person;
 import com.contacts.utils.MyLogger;
@@ -56,7 +43,7 @@ public class OccasionDAOTests {
 	@Autowired
 	private PersonDAO personDAO;
 
-	//@Ignore
+	// @Ignore
 	@Test
 	public void createOccasion() {
 		Person personTransient = TestUtils.getPersonObject("createOccasion");
@@ -68,7 +55,7 @@ public class OccasionDAOTests {
 		assertEquals("Occasion createOccasion", occasionPersisted.getName());
 	}
 
-	//@Ignore
+	// @Ignore
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void createOccasionWithEmptyName() {
 		Person personTransient = TestUtils.getPersonObject("createOccasion");
@@ -80,10 +67,9 @@ public class OccasionDAOTests {
 		assertNotNull(occasionPersisted);
 	}
 
-	//@Ignore
+	// @Ignore
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void createOccasionWithEmptyDate() {
-
 		Person personTransient = TestUtils.getPersonObject("createOccasionWithEmptyDate");
 		Person personPersistent = personDAO.save(personTransient);
 		Occasion occasionTransient = TestUtils.getOccasionObject("createOccasionWithEmptyDate");
@@ -93,10 +79,9 @@ public class OccasionDAOTests {
 		assertNotNull(occasionPersisted);
 	}
 
-	//@Ignore
-	@Test(expected = javax.validation.ConstraintViolationException.class)
+	// @Ignore
+	@Test
 	public void createOccasionWithFalseRemindMe() {
-
 		Person personTransient = TestUtils.getPersonObject("createOccasionWithFalseRemindMe");
 		Person personPersistent = personDAO.save(personTransient);
 		Occasion occasionTransient = TestUtils.getOccasionObject("createOccasionWithFalseRemindMe");
@@ -106,7 +91,7 @@ public class OccasionDAOTests {
 		assertNotNull(occasionPersisted);
 	}
 
-	//@Ignore
+	// @Ignore
 	@Test
 	public void getOccasionById() {
 		Person personTransient = TestUtils.getPersonObject("getOccasionById");
@@ -119,34 +104,29 @@ public class OccasionDAOTests {
 		assertNotNull(occasionFromDB);
 		assertEquals("Occasion getOccasionById", occasionFromDB.getName());
 		log.info(occasionFromDB);
-
 	}
 
-	//@Ignore
+	// @Ignore
 	@Test
 	public void updateOccasion() {
-
 		Person personTransient = TestUtils.getPersonObject("updateOccasion");
 		Person personPersistent = personDAO.save(personTransient);
 		Occasion occasionTransient = TestUtils.getOccasionObject("updateOccasion");
 		occasionTransient.setPerson(personPersistent);
 		Occasion occasionPersisted = occasionDAO.save(occasionTransient);
-
 		Occasion occasionFromDB = occasionDAO.findOne(occasionPersisted.getId());
 
-		occasionFromDB.setName(occasionFromDB.getName() + "updateOccasion");
+		occasionFromDB.setName(occasionFromDB.getName() + " updated");
 		occasionFromDB.setRemindMe(true);
-		LocalDateTime ldt = LocalDateTime.now();
-		Instant instant = ldt.toInstant(ZoneOffset.UTC);
-		occasionFromDB.setUpdatedDate(Date.from(instant));
+		occasionFromDB.setUpdatedDate(Date.from(Instant.now()));
 		occasionFromDB.setUpdatedUser("Occasion Update");
 		Occasion occasionupdate = occasionDAO.save(occasionFromDB);
 
 		assertNotNull(occasionupdate);
-		assertEquals(occasionupdate.getName(), "Occasion updateOccasion");
+		assertEquals("Occasion updateOccasion updated", occasionupdate.getName());
 	}
 
-	//@Ignore
+	// @Ignore
 	@Test
 	public void deleteOccasion() {
 		Person personTransient = TestUtils.getPersonObject("updateOccasion");
@@ -156,27 +136,18 @@ public class OccasionDAOTests {
 		Occasion occasionPersisted = occasionDAO.save(occasionTransient);
 
 		assertNotNull(occasionPersisted);
-		
+
 		occasionDAO.delete(occasionPersisted);
-		log.info("Image deleted " + occasionPersisted.getId());
+		log.info("Occasion deleted " + occasionPersisted.getId());
 	}
 
-	//@Ignore
+	// @Ignore
 	@Test
 	public void findAllOccasions() {
-		
 		List<Occasion> occasions = occasionDAO.findAll();
-		
-		Person personTransient = TestUtils.getPersonObject("findAllOccasions");
-		Person personPersistent = personDAO.save(personTransient);
-		Occasion occasionTransient = new Occasion();
-		occasionTransient.setPerson(personPersistent);
-		Occasion occasionPersisted = occasionDAO.save(occasionTransient);
-
 		for (Occasion occasion : occasions) {
 			log.info(occasion);
 		}
 		assertNotNull(occasions);
-	    assertNotNull(occasionPersisted);
 	}
 }

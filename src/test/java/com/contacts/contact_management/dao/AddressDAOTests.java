@@ -8,9 +8,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.sql.Date;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.*;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
@@ -42,10 +40,11 @@ public class AddressDAOTests {
 
 	@Autowired
 	private AddressDAO addressDAO;
+
 	@Autowired
 	private PersonDAO personDAO;
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void createAddress() {
 		Person personTransient = TestUtils.getPersonObject("createAddress");
@@ -54,10 +53,10 @@ public class AddressDAOTests {
 		addressTransient.setPerson(personPersisted);
 		Address addressPersisted = addressDAO.save(addressTransient);
 		assertNotNull(addressPersisted);
-		assertEquals(addressPersisted.getAddressLine1(), "Address Line 1 createAddress");
+		assertEquals("Address Line 1 createAddress", addressPersisted.getAddressLine1());
 	}
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void updateAddress() {
 		Person personTransient = TestUtils.getPersonObject("updateAddress");
@@ -67,21 +66,18 @@ public class AddressDAOTests {
 		Address addressPersisted = addressDAO.save(addressTransient);
 
 		Address addressFromDB = addressDAO.findOne(addressPersisted.getId());
-		addressFromDB.setAddressLine1(addressFromDB.getAddressLine1() + "updated");
-		LocalDateTime ldt = LocalDateTime.now();
-		Instant instant = ldt.toInstant(ZoneOffset.UTC);
-		addressFromDB.setUpdatedDate(Date.from(instant));
+		addressFromDB.setAddressLine1(addressFromDB.getAddressLine1() + " updated");
+		addressFromDB.setUpdatedDate(Date.from(Instant.now()));
 		addressFromDB.setUpdatedUser("JavaTraining Update");
 		Address addressFromDB2 = addressDAO.save(addressFromDB);
 
 		assertNotNull(addressFromDB2);
-		assertEquals(addressFromDB2.getAddressLine1(), "Address Line 1 updateAddress");
-
+		assertEquals("Address Line 1 updateAddress updated", addressFromDB2.getAddressLine1());
 	}
 
-	@Ignore
+	//@Ignore
 	@Test
-	public void createAddresWithOutAddressLine2() {
+	public void createAddressWithOutAddressLine2() {
 		Person personTransient = TestUtils.getPersonObject("createAddresWithOutAddressLine2");
 		Person personPersisted = personDAO.save(personTransient);
 		Address addressTransient = TestUtils.getAddressObject("createAddresWithOutAddressLine2");
@@ -90,21 +86,20 @@ public class AddressDAOTests {
 		Address addressPersisted = addressDAO.save(addressTransient);
 
 		assertNotNull(addressPersisted);
-		assertEquals(addressPersisted.getAddressLine1(), "AddressLine1 createAddresWithOutAddressLine2");
-
+		assertEquals("Address Line 1 createAddresWithOutAddressLine2", addressPersisted.getAddressLine1());
 	}
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void findAll() {
 		List<Address> addressList = addressDAO.findAll();
-
-		log.info(addressList);
-
+		for (Address address : addressList) {
+			log.info(address);
+		}
 		assertNotNull(addressList);
 	}
 
-	@Ignore
+	//@Ignore
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void createAddressLine1Empty() {
 		Person personTransient = TestUtils.getPersonObject("createAddressLine1Empty");
@@ -113,10 +108,9 @@ public class AddressDAOTests {
 		addressTransient.setPerson(personPersisted);
 		addressTransient.setAddressLine1(null);
 		addressDAO.save(addressTransient);
-
 	}
 
-	@Ignore
+	//@Ignore
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void createCityWithMoreThanMax() {
 		Person personTransient = TestUtils.getPersonObject("createCityWithMoreThanMax");
@@ -127,8 +121,8 @@ public class AddressDAOTests {
 				"olyxnbhbrgwogixciddtwahlphrrpmjjtghjprxbcvyoqhwgrctpipfirhdmuhpfovifcwccstkvqznpxrsldtmjekoduzuzhhiaebxhsub");
 		addressDAO.save(addressTransient);
 	}
-	
-	@Ignore
+
+	//@Ignore
 	@Test
 	public void findAddressById() {
 		Person personTransient = TestUtils.getPersonObject("addressFromDB");
@@ -136,15 +130,15 @@ public class AddressDAOTests {
 		Address addressTransient = TestUtils.getAddressObject("addressFromDB");
 		addressTransient.setPerson(personPersisted);
 		Address addressPersisted = addressDAO.save(addressTransient);
-
 		Address addressFromDB = addressDAO.findOne(addressPersisted.getId());
 
-		log.info(addressFromDB);
+		assertNotNull(addressFromDB);
+		assertEquals("Address Line 1 addressFromDB", addressFromDB.getAddressLine1());
 	}
-	
+
 	@Ignore
 	@Test
-	public void deleteAddressById(){
+	public void deleteAddressById() {
 		Person personTransient = TestUtils.getPersonObject("deleteAddressById");
 		Person personPersisted = personDAO.save(personTransient);
 		Address addressTransient = TestUtils.getAddressObject("deleteAddressById");
@@ -152,6 +146,5 @@ public class AddressDAOTests {
 		Address addressPersisted = addressDAO.save(addressTransient);
 		addressDAO.delete(addressPersisted.getId());
 		log.info("Deleting Address By Id" + addressPersisted.getId());
-		
 	}
 }

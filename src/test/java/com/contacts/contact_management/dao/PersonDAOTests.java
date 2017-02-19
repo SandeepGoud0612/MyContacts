@@ -56,7 +56,7 @@ public class PersonDAOTests {
 		Person personPersisted = personDAO.save(personTransient);
 
 		assertNotNull(personPersisted);
-		assertEquals(personPersisted.getFirstName(), "FirstName createPerson");
+		assertEquals("FirstName createPerson", personPersisted.getFirstName());
 	}
 
 	@Ignore
@@ -70,8 +70,8 @@ public class PersonDAOTests {
 
 		assertNotNull(personPersisted);
 		assertNotNull(personPersisted.getImage());
-		assertEquals(personPersisted.getFirstName(), "FirstName createPersonWithImage");
-		assertEquals(personPersisted.getImage().getTag(), "Flower createPersonWithImage");
+		assertEquals("FirstName createPersonWithImage", personPersisted.getFirstName());
+		assertEquals("Flower createPersonWithImage", personPersisted.getImage().getTag());
 	}
 
 	@Ignore
@@ -85,8 +85,8 @@ public class PersonDAOTests {
 
 		assertNotNull(personPersisted);
 		assertNotNull(personPersisted.getImage());
-		assertEquals(personPersisted.getFirstName(), "FirstName deleteImageFromPerson");
-		assertEquals(personPersisted.getImage().getTag(), "Flower deleteImageFromPerson");
+		assertEquals("FirstName deleteImageFromPerson", personPersisted.getFirstName());
+		assertEquals("Flower deleteImageFromPerson", personPersisted.getImage().getTag());
 
 		personPersisted.getImage().setPerson(null);
 		personPersisted.setImage(null);
@@ -106,8 +106,8 @@ public class PersonDAOTests {
 
 		assertNotNull(personPersisted);
 		assertNotNull(personPersisted.getImage());
-		assertEquals(personPersisted.getFirstName(), "FirstName deletePersonWithImage");
-		assertEquals(personPersisted.getImage().getTag(), "Flower deletePersonWithImage");
+		assertEquals("FirstName deletePersonWithImage", personPersisted.getFirstName());
+		assertEquals("Flower deletePersonWithImage", personPersisted.getImage().getTag());
 
 		personDAO.delete(personPersisted.getId());
 	}
@@ -120,7 +120,7 @@ public class PersonDAOTests {
 		Person personPersisted = personDAO.save(personTransient);
 
 		assertNotNull(personPersisted);
-		assertEquals(personPersisted.getFirstName(), "FirstName createPersonDOBEmpty");
+		assertEquals("FirstName createPersonDOBEmpty", personPersisted.getFirstName());
 	}
 
 	@Ignore
@@ -134,7 +134,7 @@ public class PersonDAOTests {
 		personFromDB.setOccasionList(new ArrayList<>());
 
 		assertNotNull(personFromDB);
-		assertEquals(personFromDB.getFirstName(), "FirstName findPersonById");
+		assertEquals("FirstName findPersonById", personFromDB.getFirstName());
 		log.info(personFromDB);
 	}
 
@@ -153,7 +153,7 @@ public class PersonDAOTests {
 		Person personFromDB2 = personDAO.save(personFromDB);
 
 		assertNotNull(personFromDB2);
-		assertEquals(personFromDB2.getFirstName(), "FirstName updatePerson Updated");
+		assertEquals("FirstName updatePerson Updated", personFromDB2.getFirstName());
 	}
 
 	@Ignore

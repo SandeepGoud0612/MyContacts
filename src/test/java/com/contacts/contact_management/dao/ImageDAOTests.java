@@ -62,7 +62,7 @@ public class ImageDAOTests {
 
 		assertNotNull(imagePersisted);
 		assertNotNull(imagePersisted.getPerson());
-		assertEquals(imagePersisted.getTag(), "Flower createImage");
+		assertEquals("Flower createImage", imagePersisted.getTag());
 	}
 
 	@Ignore
@@ -80,7 +80,7 @@ public class ImageDAOTests {
 
 		assertNotNull(imageFromDB);
 		assertNotNull(imageFromDB.getImage());
-		assertEquals(imageFromDB.getTag(), "Flower getImageById");
+		assertEquals("Flower getImageById", imageFromDB.getTag());
 
 		File outFile = new File("D:\\images\\outputimage2.jpg");
 		try (BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(outFile))) {
@@ -106,13 +106,13 @@ public class ImageDAOTests {
 
 		assertNotNull(imagePersisted);
 		assertNotNull(imagePersisted.getPerson());
-		assertEquals(imagePersisted.getTag(), "Flower updateImage");
+		assertEquals("Flower updateImage", imagePersisted.getTag());
 
 		Image imageFromDB = imageDAO.findOne(imagePersisted.getId());
 
 		assertNotNull(imageFromDB);
 		assertNotNull(imageFromDB.getPerson());
-		assertEquals(imageFromDB.getTag(), "Flower updateImage");
+		assertEquals("Flower updateImage", imageFromDB.getTag());
 
 		try {
 			File file = new File("D:\\images\\image4.jpg");
@@ -121,7 +121,7 @@ public class ImageDAOTests {
 			Image image3 = imageDAO.save(imagePersisted);
 
 			assertNotNull(image3);
-			assertEquals(image3.getTag(), "Flower updateImage updated");
+			assertEquals("Flower updateImage updated", image3.getTag());
 
 			File outFile = new File("D:\\images\\outputimage4.jpg");
 			try (BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(outFile))) {
@@ -150,7 +150,7 @@ public class ImageDAOTests {
 
 		assertNotNull(imagePersisted);
 		assertNotNull(imagePersisted.getPerson());
-		assertEquals(imagePersisted.getTag(), "Flower deleteImage");
+		assertEquals("Flower deleteImage", imagePersisted.getTag());
 
 		imageDAO.delete(imagePersisted);
 		log.info("Image deleted " + imagePersisted.getId());
