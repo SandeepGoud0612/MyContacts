@@ -91,11 +91,11 @@ public class Person extends BaseEntity implements Serializable {
 	private Image image;
 
 	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Address> addressList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
-	@LazyCollection(LazyCollectionOption.TRUE)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Occasion> occasionList = new ArrayList<>();
 
 	/**

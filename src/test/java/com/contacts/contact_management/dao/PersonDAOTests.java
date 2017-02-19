@@ -26,7 +26,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.contacts.contact_management.model.Address;
 import com.contacts.contact_management.model.Image;
+import com.contacts.contact_management.model.Occasion;
 import com.contacts.contact_management.model.Person;
 import com.contacts.utils.MyLogger;
 
@@ -48,6 +50,42 @@ public class PersonDAOTests {
 
 	@Autowired
 	private PersonDAO personDAO;
+	
+	//@Ignore
+	@Test
+	public void createPersonWithAllDetails(){
+		Person personTransient = TestUtils.getPersonObject("createPersonWithAllDetails");
+		
+		Image imageTransient = TestUtils.getImageObject("createPersonWithAllDetails", "D:\\images\\image1.jpg");
+		personTransient.setImage(imageTransient);
+		imageTransient.setPerson(personTransient);
+		
+		Address addressTransient1 = TestUtils.getAddressObject("createPersonWithAllDetails1") ;
+		Address addressTransient2 = TestUtils.getAddressObject("createPersonWithAllDetails2") ;
+		Address addressTransient3 = TestUtils.getAddressObject("createPersonWithAllDetails3") ;
+		personTransient.getAddressList().add(addressTransient1);
+		personTransient.getAddressList().add(addressTransient2);
+		personTransient.getAddressList().add(addressTransient3);
+		addressTransient1.setPerson(personTransient);
+		addressTransient2.setPerson(personTransient);
+		addressTransient3.setPerson(personTransient);
+		
+		Occasion occasionTransient1 = TestUtils.getOccasionObject("createPersonWithAllDetails1");
+		Occasion occasionTransient2 = TestUtils.getOccasionObject("createPersonWithAllDetails2");
+		Occasion occasionTransient3 = TestUtils.getOccasionObject("createPersonWithAllDetails3");
+		personTransient.getOccasionList().add(occasionTransient1);
+		personTransient.getOccasionList().add(occasionTransient2);
+		personTransient.getOccasionList().add(occasionTransient3);
+		occasionTransient1.setPerson(personTransient);
+		occasionTransient2.setPerson(personTransient);
+		occasionTransient3.setPerson(personTransient);
+		
+		Person personPersisted = personDAO.save(personTransient);
+		assertNotNull(personPersisted);
+		assertNotNull(personPersisted.getImage());
+		assertNotNull(personPersisted.getAddressList());
+		assertEquals("FirstName createPersonWithAllDetails", personPersisted.getFirstName());
+	}
 
 	@Ignore
 	@Test
