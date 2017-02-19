@@ -50,26 +50,26 @@ public class PersonDAOTests {
 
 	@Autowired
 	private PersonDAO personDAO;
-	
-	//@Ignore
+
+	@Ignore
 	@Test
-	public void createPersonWithAllDetails(){
+	public void createPersonWithAllDetails() {
 		Person personTransient = TestUtils.getPersonObject("createPersonWithAllDetails");
-		
+
 		Image imageTransient = TestUtils.getImageObject("createPersonWithAllDetails", "D:\\images\\image1.jpg");
 		personTransient.setImage(imageTransient);
 		imageTransient.setPerson(personTransient);
-		
-		Address addressTransient1 = TestUtils.getAddressObject("createPersonWithAllDetails1") ;
-		Address addressTransient2 = TestUtils.getAddressObject("createPersonWithAllDetails2") ;
-		Address addressTransient3 = TestUtils.getAddressObject("createPersonWithAllDetails3") ;
+
+		Address addressTransient1 = TestUtils.getAddressObject("createPersonWithAllDetails1");
+		Address addressTransient2 = TestUtils.getAddressObject("createPersonWithAllDetails2");
+		Address addressTransient3 = TestUtils.getAddressObject("createPersonWithAllDetails3");
 		personTransient.getAddressList().add(addressTransient1);
 		personTransient.getAddressList().add(addressTransient2);
 		personTransient.getAddressList().add(addressTransient3);
 		addressTransient1.setPerson(personTransient);
 		addressTransient2.setPerson(personTransient);
 		addressTransient3.setPerson(personTransient);
-		
+
 		Occasion occasionTransient1 = TestUtils.getOccasionObject("createPersonWithAllDetails1");
 		Occasion occasionTransient2 = TestUtils.getOccasionObject("createPersonWithAllDetails2");
 		Occasion occasionTransient3 = TestUtils.getOccasionObject("createPersonWithAllDetails3");
@@ -79,12 +79,134 @@ public class PersonDAOTests {
 		occasionTransient1.setPerson(personTransient);
 		occasionTransient2.setPerson(personTransient);
 		occasionTransient3.setPerson(personTransient);
-		
+
 		Person personPersisted = personDAO.save(personTransient);
 		assertNotNull(personPersisted);
 		assertNotNull(personPersisted.getImage());
 		assertNotNull(personPersisted.getAddressList());
 		assertEquals("FirstName createPersonWithAllDetails", personPersisted.getFirstName());
+	}
+
+    @Ignore
+	@Test
+	public void updatePersonWithAllDetails() {
+		Person personTransient = TestUtils.getPersonObject("updatePersonWithAllDetails");
+
+		Image imageTransient = TestUtils.getImageObject("updatePersonWithAllDetails", "H:\\image1.jpg");
+		imageTransient.setPerson(personTransient);
+		personTransient.setImage(imageTransient);
+
+		Address addressTransient1 = TestUtils.getAddressObject("updatePersonWithAllDetails");
+		addressTransient1.setPerson(personTransient);
+		personTransient.getAddressList().add(addressTransient1);
+
+		Occasion occasionTransient1 = TestUtils.getOccasionObject("updatePersonWithAllDetails");
+		occasionTransient1.setPerson(personTransient);
+		personTransient.getOccasionList().add(occasionTransient1);
+
+		Person personPersisted = personDAO.save(personTransient);
+
+		Person personFromDB = personDAO.findOne(personPersisted.getId());
+		personFromDB.setFirstName(personFromDB.getFirstName() + " Updated");
+		personFromDB.getAddressList().get(0).setAddressLine1("AddressLine1 Updated");
+		personFromDB.getOccasionList().get(0).setName("OccasionName updated");
+		personFromDB.getImage().setTag("Tag Updated");
+
+		Person personUpdated = personDAO.save(personFromDB);
+		assertNotNull(personUpdated);
+		assertNotNull(personUpdated.getImage());
+		assertNotNull(personUpdated.getAddressList());
+		assertNotNull(personUpdated.getOccasionList());
+
+		assertEquals("FirstName updatePersonWithAllDetails Updated", personUpdated.getFirstName());
+		assertEquals("AddressLine1 Updated", personUpdated.getAddressList().get(0).getAddressLine1());
+		assertEquals("OccasionName updated", personUpdated.getOccasionList().get(0).getName());
+		assertEquals("Tag Updated", personUpdated.getImage().getTag());
+	}
+	
+	@Ignore
+	@Test
+	public void deletePersonWithAllDetails() {
+		Person personTransient = TestUtils.getPersonObject("deletePersonWithAllDetails");
+
+		Image imageTransient = TestUtils.getImageObject("deletePersonWithAllDetails", "H:\\image1.jpg");
+		personTransient.setImage(imageTransient);
+		imageTransient.setPerson(personTransient);
+
+		Address addressTransient1 = TestUtils.getAddressObject("deletePersonWithAllDetails");
+		Address addressTransient2 = TestUtils.getAddressObject("deletePersonWithAllDetails");
+		Address addressTransient3 = TestUtils.getAddressObject("deletePersonWithAllDetails");
+		personTransient.getAddressList().add(addressTransient1);
+		personTransient.getAddressList().add(addressTransient2);
+		personTransient.getAddressList().add(addressTransient3);
+		addressTransient1.setPerson(personTransient);
+		addressTransient2.setPerson(personTransient);
+		addressTransient3.setPerson(personTransient);
+
+		Occasion occasionTransient1 = TestUtils.getOccasionObject("deletePersonWithAllDetails");
+		Occasion occasionTransient2 = TestUtils.getOccasionObject("deletePersonWithAllDetails");
+		Occasion occasionTransient3 = TestUtils.getOccasionObject("deletePersonWithAllDetails");
+		personTransient.getOccasionList().add(occasionTransient1);
+		personTransient.getOccasionList().add(occasionTransient2);
+		personTransient.getOccasionList().add(occasionTransient3);
+		occasionTransient1.setPerson(personTransient);
+		occasionTransient2.setPerson(personTransient);
+		occasionTransient3.setPerson(personTransient);
+
+		Person personPersisted = personDAO.save(personTransient);
+		assertNotNull(personPersisted);
+		assertNotNull(personPersisted.getImage());
+		assertNotNull(personPersisted.getAddressList());
+		
+		personDAO.delete(personPersisted.getId());
+	}
+	
+	
+	//@Ignore
+	@Test
+	public void deletePersonWithOneAddressOcasion() {
+		Person personTransient = TestUtils.getPersonObject("deletePersonWithOneAddressOcasion");
+
+		Image imageTransient = TestUtils.getImageObject("deletePersonWithOneAddressOcasion", "H:\\image1.jpg");
+		personTransient.setImage(imageTransient);
+		imageTransient.setPerson(personTransient);
+
+		Address addressTransient1 = TestUtils.getAddressObject("deletePersonWithOneAddressOcasion");
+		Address addressTransient2 = TestUtils.getAddressObject("deletePersonWithOneAddressOcasion");
+		Address addressTransient3 = TestUtils.getAddressObject("deletePersonWithOneAddressOcasion");
+		personTransient.getAddressList().add(addressTransient1);
+		personTransient.getAddressList().add(addressTransient2);
+		personTransient.getAddressList().add(addressTransient3);
+		addressTransient1.setPerson(personTransient);
+		addressTransient2.setPerson(personTransient);
+		addressTransient3.setPerson(personTransient);
+
+		Occasion occasionTransient1 = TestUtils.getOccasionObject("deletePersonWithOneAddressOcasion");
+		Occasion occasionTransient2 = TestUtils.getOccasionObject("deletePersonWithOneAddressOcasion");
+		Occasion occasionTransient3 = TestUtils.getOccasionObject("deletePersonWithOneAddressOcasion");
+		personTransient.getOccasionList().add(occasionTransient1);
+		personTransient.getOccasionList().add(occasionTransient2);
+		personTransient.getOccasionList().add(occasionTransient3);
+		occasionTransient1.setPerson(personTransient);
+		occasionTransient2.setPerson(personTransient);
+		occasionTransient3.setPerson(personTransient);
+
+		Person personPersisted = personDAO.save(personTransient);
+		assertNotNull(personPersisted);
+		assertNotNull(personPersisted.getImage());
+		assertNotNull(personPersisted.getAddressList());
+		assertEquals("FirstName deletePersonWithOneAddressOcasion", personPersisted.getFirstName());
+		
+		personPersisted.getAddressList().get(0).setPerson(null);
+		personPersisted.getAddressList().set(0, null);
+		personPersisted.getOccasionList().get(0).setPerson(null);
+		personPersisted.getOccasionList().set(0, null);
+		
+		Person personFromDB = personDAO.save(personPersisted);
+		assertNotNull(personFromDB);
+		assertNotNull(personFromDB.getImage());
+		assertNotNull(personFromDB.getAddressList());
+		
 	}
 
 	@Ignore
