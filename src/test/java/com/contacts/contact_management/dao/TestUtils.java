@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import com.contacts.contact_management.enums.Gender;
 import com.contacts.contact_management.model.Address;
 import com.contacts.contact_management.model.Image;
+import com.contacts.contact_management.model.Occasion;
 import com.contacts.contact_management.model.Person;
 
 /**
@@ -45,16 +46,24 @@ public class TestUtils {
 		}
 		return imageTransient;
 	}
-	
-	public static Address getAddressObject(final String methodName){
+
+	public static Address getAddressObject(final String methodName) {
 		Address address = new Address();
 		address.setAddressLine1("Address Line 1 " + methodName);
 		address.setAddressLine2("Address Line 2 " + methodName);
 		address.setCity("City " + methodName);
 		address.setState("State " + methodName);
-		address.setCountry("Country " + methodName );
+		address.setCountry("Country " + methodName);
 		address.setZipCode(77077L);
 		return address;
+	}
+
+	public static Occasion getOccasionObject(final String methodName) {
+		Occasion occasion = new Occasion();
+		occasion.setName("Occasion " + methodName);
+		occasion.setRemindMe(true);
+		occasion.setDate(Date.valueOf(LocalDate.now()));
+		return occasion;
 	}
 
 }
