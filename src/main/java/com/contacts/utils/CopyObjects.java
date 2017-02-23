@@ -23,5 +23,6 @@ public class CopyObjects {
 		destinationImage.setTag(sourceImage.getTag());
 		return destinationImage;
 	}
-
+	
+	
 }
