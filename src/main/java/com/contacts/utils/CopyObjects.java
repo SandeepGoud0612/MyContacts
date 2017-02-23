@@ -14,7 +14,6 @@ public class CopyObjects {
 		destinationPerson.setAlternateEmailId(sourcePerson.getAlternateEmailId());
 		destinationPerson.setPhoneNumber(sourcePerson.getPhoneNumber());
 		destinationPerson.setAlternatePhoneNumber(sourcePerson.getAlternatePhoneNumber());
-		//copyImage(sourcePerson.getImage(), destinationPerson.getImage());
 		return destinationPerson;
 	}
 	
