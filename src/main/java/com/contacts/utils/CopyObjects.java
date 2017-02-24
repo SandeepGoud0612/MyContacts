@@ -1,6 +1,7 @@
 package com.contacts.utils;
 
 import com.contacts.contact_management.model.Image;
+import com.contacts.contact_management.model.Occasion;
 import com.contacts.contact_management.model.Person;
 
 public class CopyObjects {
@@ -21,6 +22,13 @@ public class CopyObjects {
 		destinationImage.setImage(sourceImage.getImage());
 		destinationImage.setTag(sourceImage.getTag());
 		return destinationImage;
+	}
+	
+	public static Occasion copyOccasion(final Occasion sourceOccasion, final Occasion destinationOccasion){
+		destinationOccasion.setName(sourceOccasion.getName());
+		destinationOccasion.setDate(sourceOccasion.getDate());
+		destinationOccasion.setRemindMe(sourceOccasion.getRemindMe());
+		return destinationOccasion;
 	}
 	
 	
