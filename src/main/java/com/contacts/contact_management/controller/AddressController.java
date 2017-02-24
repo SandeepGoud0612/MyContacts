@@ -69,7 +69,7 @@ public class AddressController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Address> updateAddress(@PathVariable final Long id, @RequestBody final Address address){
 		Address address1 = addressService.getAddressById(id);
-		CopyObjects.copyAddress(address, address1);
+		//CopyObjects.copyAddress(address, address1);
 		Address addressupdated = addressService.updateAddress(address1);
 		return new ResponseEntity<Address>(addressupdated, HttpStatus.OK);
 		
