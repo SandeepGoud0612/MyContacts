@@ -26,7 +26,7 @@ import com.contacts.utils.CopyObjects;
  *
  */
 @RestController
-@RequestMapping(value = "/contacts")
+@RequestMapping(value = "/occasions")
 @CrossOrigin
 public class OccasionController {
 
