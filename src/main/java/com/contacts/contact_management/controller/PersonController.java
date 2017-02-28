@@ -33,14 +33,14 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 
-	/**
-	 * Web service to return person as json.
-	 * 
-	 * @param id
-	 * @return ResponseEntity<Person>
-	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Person> getPersonById(@PathVariable final Long id) {
+		Person person = personService.getPersonById(id);
+		return new ResponseEntity<Person>(person, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/personaldetails/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Person> getPersonWithPersonalDetailsOnlyById(@PathVariable final Long id) {
 		Person person = personService.getPersonById(id);
 		person.setImage(null);
 		person.setAddressList(null);
@@ -53,9 +53,15 @@ public class PersonController {
 		personService.deletePerson(id);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-
+	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Person>> getAllPersons() {
+		List<Person> persons = personService.getAllPersons();		
+		return new ResponseEntity<List<Person>>(persons, HttpStatus.OK);
+	}
+
+	@RequestMapping(value="/personaldetails",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Person>> getAllPersonsWithPersonalDetailsOnly() {
 		List<Person> persons = personService.getAllPersons();
 		persons.stream().forEach(person -> {
 			person.setImage(null);
