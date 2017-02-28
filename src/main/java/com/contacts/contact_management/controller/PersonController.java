@@ -26,7 +26,7 @@ import com.contacts.utils.CopyObjects;
  *
  */
 @RestController
-@RequestMapping(value = "/contacts")
+@RequestMapping(value = "/persons")
 @CrossOrigin
 public class PersonController {
 
@@ -57,6 +57,11 @@ public class PersonController {
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Person>> getAllPersons() {
 		List<Person> persons = personService.getAllPersons();
+		persons.stream().forEach(person -> {
+			person.setImage(null);
+			person.setAddressList(null);
+			person.setOccasionList(null);
+		});
 		return new ResponseEntity<List<Person>>(persons, HttpStatus.OK);
 	}
 
