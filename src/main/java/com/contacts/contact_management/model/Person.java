@@ -28,6 +28,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Email;
 
 import com.contacts.contact_management.enums.Gender;
+import com.contacts.contact_management.enums.MaritalStatus;
 
 /**
  * @author Sandeep
@@ -85,7 +86,8 @@ public class Person extends BaseEntity implements Serializable {
 	private String alternateEmailId;
 
 	@Column(name = "MARITAL_STATUS")
-	private Boolean maritalStatus;
+	@Enumerated(EnumType.STRING)
+	private MaritalStatus maritalStatus;
 
 	@OneToOne(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.TRUE)
@@ -267,7 +269,7 @@ public class Person extends BaseEntity implements Serializable {
 	/**
 	 * @return the maritalStatus
 	 */
-	public Boolean getMaritalStatus() {
+	public MaritalStatus getMaritalStatus() {
 		return maritalStatus;
 	}
 
@@ -275,7 +277,7 @@ public class Person extends BaseEntity implements Serializable {
 	 * @param maritalStatus
 	 *            the maritalStatus to set
 	 */
-	public void setMaritalStatus(final Boolean maritalStatus) {
+	public void setMaritalStatus(final MaritalStatus maritalStatus) {
 		this.maritalStatus = maritalStatus;
 	}
 

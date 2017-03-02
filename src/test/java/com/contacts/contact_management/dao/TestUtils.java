@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 import com.contacts.contact_management.enums.Gender;
+import com.contacts.contact_management.enums.MaritalStatus;
 import com.contacts.contact_management.model.Address;
 import com.contacts.contact_management.model.Image;
 import com.contacts.contact_management.model.Occasion;
@@ -31,7 +32,7 @@ public class TestUtils {
 		personTransient.setAlternateEmailId("AlternateEmailId@gmail.com");
 		personTransient.setPhoneNumber(911114567890L);
 		personTransient.setAlternatePhoneNumber(912224567890L);
-		personTransient.setMaritalStatus(false);
+		personTransient.setMaritalStatus(MaritalStatus.Single);
 		return personTransient;
 	}
 
