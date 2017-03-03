@@ -36,6 +36,7 @@ public class PersonController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Person> getPersonById(@PathVariable final Long id) {
 		Person person = personService.getPersonById(id);
+		person.setImage(null);
 		return new ResponseEntity<Person>(person, HttpStatus.OK);
 	}
 	
