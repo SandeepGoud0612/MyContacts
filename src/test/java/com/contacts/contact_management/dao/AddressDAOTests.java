@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class AddressDAOTests {
 	@Autowired
 	private PersonDAO personDAO;
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void createAddress() {
 		Person personTransient = TestUtils.getPersonObject("createAddress");
@@ -55,7 +56,7 @@ public class AddressDAOTests {
 		assertEquals("Address Line 1 createAddress", addressPersisted.getAddressLine1());
 	}
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void updateAddress() {
 		Person personTransient = TestUtils.getPersonObject("updateAddress");
@@ -74,7 +75,7 @@ public class AddressDAOTests {
 		assertEquals("Address Line 1 updateAddress updated", addressFromDB2.getAddressLine1());
 	}
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void createAddressWithOutAddressLine2() {
 		Person personTransient = TestUtils.getPersonObject("createAddresWithOutAddressLine2");
@@ -88,7 +89,7 @@ public class AddressDAOTests {
 		assertEquals("Address Line 1 createAddresWithOutAddressLine2", addressPersisted.getAddressLine1());
 	}
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void findAll() {
 		List<Address> addressList = addressDAO.findAll();
@@ -98,7 +99,7 @@ public class AddressDAOTests {
 		assertNotNull(addressList);
 	}
 
-	//@Ignore
+	@Ignore
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void createAddressLine1Empty() {
 		Person personTransient = TestUtils.getPersonObject("createAddressLine1Empty");
@@ -109,7 +110,7 @@ public class AddressDAOTests {
 		addressDAO.save(addressTransient);
 	}
 
-	//@Ignore
+	@Ignore
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void createCityWithMoreThanMax() {
 		Person personTransient = TestUtils.getPersonObject("createCityWithMoreThanMax");
@@ -121,7 +122,7 @@ public class AddressDAOTests {
 		addressDAO.save(addressTransient);
 	}
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void findAddressById() {
 		Person personTransient = TestUtils.getPersonObject("addressFromDB");
@@ -135,7 +136,7 @@ public class AddressDAOTests {
 		assertEquals("Address Line 1 addressFromDB", addressFromDB.getAddressLine1());
 	}
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void deleteAddressById() {
 		Person personTransient = TestUtils.getPersonObject("deleteAddressById");

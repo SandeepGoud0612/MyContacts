@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class OccasionDAOTests {
 	@Autowired
 	private PersonDAO personDAO;
 
-	// @Ignore
+	@Ignore
 	@Test
 	public void createOccasion() {
 		Person personTransient = TestUtils.getPersonObject("createOccasion");
@@ -55,7 +56,7 @@ public class OccasionDAOTests {
 		assertEquals("Occasion createOccasion", occasionPersisted.getName());
 	}
 
-	// @Ignore
+	@Ignore
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void createOccasionWithEmptyName() {
 		Person personTransient = TestUtils.getPersonObject("createOccasion");
@@ -67,7 +68,7 @@ public class OccasionDAOTests {
 		assertNotNull(occasionPersisted);
 	}
 
-	// @Ignore
+	@Ignore
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void createOccasionWithEmptyDate() {
 		Person personTransient = TestUtils.getPersonObject("createOccasionWithEmptyDate");
@@ -79,7 +80,7 @@ public class OccasionDAOTests {
 		assertNotNull(occasionPersisted);
 	}
 
-	// @Ignore
+	@Ignore
 	@Test
 	public void createOccasionWithFalseRemindMe() {
 		Person personTransient = TestUtils.getPersonObject("createOccasionWithFalseRemindMe");
@@ -91,7 +92,7 @@ public class OccasionDAOTests {
 		assertNotNull(occasionPersisted);
 	}
 
-	// @Ignore
+	@Ignore
 	@Test
 	public void getOccasionById() {
 		Person personTransient = TestUtils.getPersonObject("getOccasionById");
@@ -106,7 +107,7 @@ public class OccasionDAOTests {
 		log.info(occasionFromDB);
 	}
 
-	// @Ignore
+	@Ignore
 	@Test
 	public void updateOccasion() {
 		Person personTransient = TestUtils.getPersonObject("updateOccasion");
@@ -126,7 +127,7 @@ public class OccasionDAOTests {
 		assertEquals("Occasion updateOccasion updated", occasionupdate.getName());
 	}
 
-	// @Ignore
+	@Ignore
 	@Test
 	public void deleteOccasion() {
 		Person personTransient = TestUtils.getPersonObject("updateOccasion");
@@ -141,7 +142,7 @@ public class OccasionDAOTests {
 		log.info("Occasion deleted " + occasionPersisted.getId());
 	}
 
-	// @Ignore
+	@Ignore
 	@Test
 	public void findAllOccasions() {
 		List<Occasion> occasions = occasionDAO.findAll();

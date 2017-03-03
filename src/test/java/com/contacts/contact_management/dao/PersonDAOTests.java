@@ -54,15 +54,15 @@ public class PersonDAOTests {
 	//@Ignore
 	@Test
 	public void createPersonWithAllDetails() {
-		Person personTransient = TestUtils.getPersonObject("createPersonWithAllDetails");
+		Person personTransient = TestUtils.getPersonObject("");
 
-		Image imageTransient = TestUtils.getImageObject("createPersonWithAllDetails", "D:\\images\\image1.jpg");
+		Image imageTransient = TestUtils.getImageObject("", "D:\\images\\image1.jpg");
 		personTransient.setImage(imageTransient);
 		imageTransient.setPerson(personTransient);
 
-		Address addressTransient1 = TestUtils.getAddressObject("createPersonWithAllDetails1");
-		Address addressTransient2 = TestUtils.getAddressObject("createPersonWithAllDetails2");
-		Address addressTransient3 = TestUtils.getAddressObject("createPersonWithAllDetails3");
+		Address addressTransient1 = TestUtils.getAddressObject("");
+		Address addressTransient2 = TestUtils.getAddressObject("");
+		Address addressTransient3 = TestUtils.getAddressObject("");
 		personTransient.getAddressList().add(addressTransient1);
 		personTransient.getAddressList().add(addressTransient2);
 		personTransient.getAddressList().add(addressTransient3);
@@ -70,9 +70,9 @@ public class PersonDAOTests {
 		addressTransient2.setPerson(personTransient);
 		addressTransient3.setPerson(personTransient);
 
-		Occasion occasionTransient1 = TestUtils.getOccasionObject("createPersonWithAllDetails1");
-		Occasion occasionTransient2 = TestUtils.getOccasionObject("createPersonWithAllDetails2");
-		Occasion occasionTransient3 = TestUtils.getOccasionObject("createPersonWithAllDetails3");
+		Occasion occasionTransient1 = TestUtils.getOccasionObject("");
+		Occasion occasionTransient2 = TestUtils.getOccasionObject("");
+		Occasion occasionTransient3 = TestUtils.getOccasionObject("");
 		personTransient.getOccasionList().add(occasionTransient1);
 		personTransient.getOccasionList().add(occasionTransient2);
 		personTransient.getOccasionList().add(occasionTransient3);
@@ -162,7 +162,7 @@ public class PersonDAOTests {
 	}
 	
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void deletePersonWithOneAddressOcasion() {
 		Person personTransient = TestUtils.getPersonObject("deletePersonWithOneAddressOcasion");
