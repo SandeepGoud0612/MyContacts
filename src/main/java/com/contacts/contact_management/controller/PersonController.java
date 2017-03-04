@@ -80,9 +80,9 @@ public class PersonController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Person> updatePerson(@PathVariable final Long id, @RequestBody final Person person) {
-		Person personDetached = personService.getPersonById(id);
-		CopyObjects.copyPerson(person, personDetached);
-		Person personUpdated = personService.updatePerson(personDetached);
+		Person personFromDB = personService.getPersonById(id);
+		CopyObjects.copyPerson(person, personFromDB);
+		Person personUpdated = personService.updatePerson(personFromDB);
 		return new ResponseEntity<Person>(personUpdated, HttpStatus.OK);
 	}
 
