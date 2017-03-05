@@ -56,9 +56,9 @@ public class PersonDAOTests {
 	public void createPersonWithAllDetails() {
 		Person personTransient = TestUtils.getPersonObject("");
 
-		Image imageTransient = TestUtils.getImageObject("", "D:\\images\\image1.jpg");
+		/*Image imageTransient = TestUtils.getImageObject("", "D:\\images\\image1.jpg");
 		personTransient.setImage(imageTransient);
-		imageTransient.setPerson(personTransient);
+		imageTransient.setPerson(personTransient);*/
 
 		Address addressTransient1 = TestUtils.getAddressObject("");
 		Address addressTransient2 = TestUtils.getAddressObject("");
