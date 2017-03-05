@@ -51,8 +51,8 @@ public class ImageDAOTests {
 	@Ignore
 	@Test
 	public void createImage() {
-		Image imageTransient = TestUtils.getImageObject("createImage", "D:\\images\\image1.jpg");
-		Person personTransient = TestUtils.getPersonObject("createImage");
+		Image imageTransient = TestUtils.getImageObject("D:\\images\\image1.jpg");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersisted = personDAO.save(personTransient);
 
 		assertNotNull(personPersisted);
@@ -68,8 +68,8 @@ public class ImageDAOTests {
 	@Ignore
 	@Test
 	public void getImageById() {
-		Image imageTransient = TestUtils.getImageObject("getImageById", "D:\\images\\image2.jpg");
-		Person personTransient = TestUtils.getPersonObject("getImageById");
+		Image imageTransient = TestUtils.getImageObject("D:\\images\\image2.jpg");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersisted = personDAO.save(personTransient);
 
 		assertNotNull(personPersisted);
@@ -95,8 +95,8 @@ public class ImageDAOTests {
 	@Ignore
 	@Test
 	public void updateImage() {
-		Image imageTransient = TestUtils.getImageObject("updateImage", "D:\\images\\image3.jpg");
-		Person personTransient = TestUtils.getPersonObject("updateImage");
+		Image imageTransient = TestUtils.getImageObject( "D:\\images\\image3.jpg");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersisted = personDAO.save(personTransient);
 
 		assertNotNull(personPersisted);
@@ -139,8 +139,8 @@ public class ImageDAOTests {
 	@Ignore
 	@Test
 	public void deleteImage() {
-		Image imageTransient = TestUtils.getImageObject("deleteImage", "D:\\images\\image1.jpg");
-		Person personTransient = TestUtils.getPersonObject("deleteImage");
+		Image imageTransient = TestUtils.getImageObject( "D:\\images\\image1.jpg");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersisted = personDAO.save(personTransient);
 
 		assertNotNull(personPersisted);

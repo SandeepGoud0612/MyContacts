@@ -22,10 +22,10 @@ import com.contacts.contact_management.model.Person;
  */
 public class TestUtils {
 
-	public static Person getPersonObject(final String methodName) {
+	public static Person getPersonObject() {
 		Person personTransient = new Person();
-		personTransient.setFirstName("FirstName " + methodName);
-		personTransient.setLastName("LastName " + methodName);
+		personTransient.setFirstName("FirstName");
+		personTransient.setLastName("LastName");
 		personTransient.setGender(Gender.Male);
 		personTransient.setDob(Date.valueOf(LocalDate.now()));
 		personTransient.setEmailId("EmailId@gmail.com");
@@ -36,9 +36,9 @@ public class TestUtils {
 		return personTransient;
 	}
 
-	public static Image getImageObject(final String methodName, final String imagePath) {
+	public static Image getImageObject(final String imagePath) {
 		Image imageTransient = new Image();
-		imageTransient.setTag("Flower " + methodName);
+		imageTransient.setTag("Flower");
 		try {
 			File file = new File(imagePath);
 			imageTransient.setImage(Files.readAllBytes(file.toPath()));
@@ -48,20 +48,20 @@ public class TestUtils {
 		return imageTransient;
 	}
 
-	public static Address getAddressObject(final String methodName) {
+	public static Address getAddressObject() {
 		Address address = new Address();
-		address.setAddressLine1("Address Line 1 " + methodName);
-		address.setAddressLine2("Address Line 2 " + methodName);
-		address.setCity("City " + methodName);
-		address.setState("State " + methodName);
-		address.setCountry("Country " + methodName);
+		address.setAddressLine1("Address Line 1");
+		address.setAddressLine2("Address Line 2");
+		address.setCity("City");
+		address.setState("State");
+		address.setCountry("Country");
 		address.setZipCode(77077L);
 		return address;
 	}
 
-	public static Occasion getOccasionObject(final String methodName) {
+	public static Occasion getOccasionObject() {
 		Occasion occasion = new Occasion();
-		occasion.setName("Occasion " + methodName);
+		occasion.setName("Occasion");
 		occasion.setRemindMe(true);
 		occasion.setDate(Date.valueOf(LocalDate.now()));
 		return occasion;

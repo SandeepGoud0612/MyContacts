@@ -47,9 +47,9 @@ public class OccasionDAOTests {
 	@Ignore
 	@Test
 	public void createOccasion() {
-		Person personTransient = TestUtils.getPersonObject("createOccasion");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersistent = personDAO.save(personTransient);
-		Occasion occasionTransient = TestUtils.getOccasionObject("createOccasion");
+		Occasion occasionTransient = TestUtils.getOccasionObject();
 		occasionTransient.setPerson(personPersistent);
 		Occasion occasionPersisted = occasionDAO.save(occasionTransient);
 		assertNotNull(occasionPersisted);
@@ -59,9 +59,9 @@ public class OccasionDAOTests {
 	@Ignore
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void createOccasionWithEmptyName() {
-		Person personTransient = TestUtils.getPersonObject("createOccasion");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersistent = personDAO.save(personTransient);
-		Occasion occasionTransient = TestUtils.getOccasionObject("createOccasionWithEmptyName");
+		Occasion occasionTransient = TestUtils.getOccasionObject();
 		occasionTransient.setName("");
 		occasionTransient.setPerson(personPersistent);
 		Occasion occasionPersisted = occasionDAO.save(occasionTransient);
@@ -71,9 +71,9 @@ public class OccasionDAOTests {
 	@Ignore
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void createOccasionWithEmptyDate() {
-		Person personTransient = TestUtils.getPersonObject("createOccasionWithEmptyDate");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersistent = personDAO.save(personTransient);
-		Occasion occasionTransient = TestUtils.getOccasionObject("createOccasionWithEmptyDate");
+		Occasion occasionTransient = TestUtils.getOccasionObject();
 		occasionTransient.setDate(null);
 		occasionTransient.setPerson(personPersistent);
 		Occasion occasionPersisted = occasionDAO.save(occasionTransient);
@@ -83,9 +83,9 @@ public class OccasionDAOTests {
 	@Ignore
 	@Test
 	public void createOccasionWithFalseRemindMe() {
-		Person personTransient = TestUtils.getPersonObject("createOccasionWithFalseRemindMe");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersistent = personDAO.save(personTransient);
-		Occasion occasionTransient = TestUtils.getOccasionObject("createOccasionWithFalseRemindMe");
+		Occasion occasionTransient = TestUtils.getOccasionObject();
 		occasionTransient.setRemindMe(false);
 		occasionTransient.setPerson(personPersistent);
 		Occasion occasionPersisted = occasionDAO.save(occasionTransient);
@@ -95,9 +95,9 @@ public class OccasionDAOTests {
 	@Ignore
 	@Test
 	public void getOccasionById() {
-		Person personTransient = TestUtils.getPersonObject("getOccasionById");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersistent = personDAO.save(personTransient);
-		Occasion occasionTransient = TestUtils.getOccasionObject("getOccasionById");
+		Occasion occasionTransient = TestUtils.getOccasionObject();
 		occasionTransient.setPerson(personPersistent);
 		Occasion occasionPersisted = occasionDAO.save(occasionTransient);
 		assertNotNull(occasionPersisted);
@@ -110,9 +110,9 @@ public class OccasionDAOTests {
 	@Ignore
 	@Test
 	public void updateOccasion() {
-		Person personTransient = TestUtils.getPersonObject("updateOccasion");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersistent = personDAO.save(personTransient);
-		Occasion occasionTransient = TestUtils.getOccasionObject("updateOccasion");
+		Occasion occasionTransient = TestUtils.getOccasionObject();
 		occasionTransient.setPerson(personPersistent);
 		Occasion occasionPersisted = occasionDAO.save(occasionTransient);
 		Occasion occasionFromDB = occasionDAO.findOne(occasionPersisted.getId());
@@ -130,9 +130,9 @@ public class OccasionDAOTests {
 	@Ignore
 	@Test
 	public void deleteOccasion() {
-		Person personTransient = TestUtils.getPersonObject("updateOccasion");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersistent = personDAO.save(personTransient);
-		Occasion occasionTransient = TestUtils.getOccasionObject("updateOccasion");
+		Occasion occasionTransient = TestUtils.getOccasionObject();
 		occasionTransient.setPerson(personPersistent);
 		Occasion occasionPersisted = occasionDAO.save(occasionTransient);
 

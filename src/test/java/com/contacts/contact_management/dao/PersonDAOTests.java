@@ -54,18 +54,18 @@ public class PersonDAOTests {
 	//@Ignore
 	@Test
 	public void createPersonWithAllDetails() {
-		Person personTransient = TestUtils.getPersonObject("");
+		Person personTransient = TestUtils.getPersonObject();
 
 		/*Image imageTransient = TestUtils.getImageObject("", "D:\\images\\image1.jpg");
 		personTransient.setImage(imageTransient);
 		imageTransient.setPerson(personTransient);*/
 
-		Address addressTransient1 = TestUtils.getAddressObject("");
-		Address addressTransient2 = TestUtils.getAddressObject("");
-		Address addressTransient3 = TestUtils.getAddressObject("");
-		Address addressTransient4 = TestUtils.getAddressObject("");
-		Address addressTransient5 = TestUtils.getAddressObject("");
-		Address addressTransient6 = TestUtils.getAddressObject("");
+		Address addressTransient1 = TestUtils.getAddressObject();
+		Address addressTransient2 = TestUtils.getAddressObject();
+		Address addressTransient3 = TestUtils.getAddressObject();
+		Address addressTransient4 = TestUtils.getAddressObject();
+		Address addressTransient5 = TestUtils.getAddressObject();
+		Address addressTransient6 = TestUtils.getAddressObject();
 		personTransient.getAddressList().add(addressTransient1);
 		personTransient.getAddressList().add(addressTransient2);
 		personTransient.getAddressList().add(addressTransient3);
@@ -79,12 +79,12 @@ public class PersonDAOTests {
 		addressTransient5.setPerson(personTransient);
 		addressTransient6.setPerson(personTransient);
 
-		Occasion occasionTransient1 = TestUtils.getOccasionObject("");
-		Occasion occasionTransient2 = TestUtils.getOccasionObject("");
-		Occasion occasionTransient3 = TestUtils.getOccasionObject("");
-		Occasion occasionTransient4 = TestUtils.getOccasionObject("");
-		Occasion occasionTransient5 = TestUtils.getOccasionObject("");
-		Occasion occasionTransient6 = TestUtils.getOccasionObject("");
+		Occasion occasionTransient1 = TestUtils.getOccasionObject();
+		Occasion occasionTransient2 = TestUtils.getOccasionObject();
+		Occasion occasionTransient3 = TestUtils.getOccasionObject();
+		Occasion occasionTransient4 = TestUtils.getOccasionObject();
+		Occasion occasionTransient5 = TestUtils.getOccasionObject();
+		Occasion occasionTransient6 = TestUtils.getOccasionObject();
 		personTransient.getOccasionList().add(occasionTransient1);
 		personTransient.getOccasionList().add(occasionTransient2);
 		personTransient.getOccasionList().add(occasionTransient3);
@@ -100,25 +100,24 @@ public class PersonDAOTests {
 
 		Person personPersisted = personDAO.save(personTransient);
 		assertNotNull(personPersisted);
-		assertNotNull(personPersisted.getImage());
 		assertNotNull(personPersisted.getAddressList());
-		assertEquals("FirstName createPersonWithAllDetails", personPersisted.getFirstName());
+		assertEquals("FirstName", personPersisted.getFirstName());
 	}
 
     @Ignore
 	@Test
 	public void updatePersonWithAllDetails() {
-		Person personTransient = TestUtils.getPersonObject("updatePersonWithAllDetails");
+		Person personTransient = TestUtils.getPersonObject();
 
-		Image imageTransient = TestUtils.getImageObject("updatePersonWithAllDetails", "D:\\images\\image1.jpg");
+		Image imageTransient = TestUtils.getImageObject("D:\\images\\image1.jpg");
 		imageTransient.setPerson(personTransient);
 		personTransient.setImage(imageTransient);
 
-		Address addressTransient1 = TestUtils.getAddressObject("updatePersonWithAllDetails");
+		Address addressTransient1 = TestUtils.getAddressObject();
 		addressTransient1.setPerson(personTransient);
 		personTransient.getAddressList().add(addressTransient1);
 
-		Occasion occasionTransient1 = TestUtils.getOccasionObject("updatePersonWithAllDetails");
+		Occasion occasionTransient1 = TestUtils.getOccasionObject();
 		occasionTransient1.setPerson(personTransient);
 		personTransient.getOccasionList().add(occasionTransient1);
 
@@ -145,15 +144,15 @@ public class PersonDAOTests {
 	@Ignore
 	@Test
 	public void deletePersonWithAllDetails() {
-		Person personTransient = TestUtils.getPersonObject("deletePersonWithAllDetails");
+		Person personTransient = TestUtils.getPersonObject();
 
-		Image imageTransient = TestUtils.getImageObject("deletePersonWithAllDetails", "D:\\images\\image1.jpg");
+		Image imageTransient = TestUtils.getImageObject("D:\\images\\image1.jpg");
 		personTransient.setImage(imageTransient);
 		imageTransient.setPerson(personTransient);
 
-		Address addressTransient1 = TestUtils.getAddressObject("deletePersonWithAllDetails");
-		Address addressTransient2 = TestUtils.getAddressObject("deletePersonWithAllDetails");
-		Address addressTransient3 = TestUtils.getAddressObject("deletePersonWithAllDetails");
+		Address addressTransient1 = TestUtils.getAddressObject();
+		Address addressTransient2 = TestUtils.getAddressObject();
+		Address addressTransient3 = TestUtils.getAddressObject();
 		personTransient.getAddressList().add(addressTransient1);
 		personTransient.getAddressList().add(addressTransient2);
 		personTransient.getAddressList().add(addressTransient3);
@@ -161,9 +160,9 @@ public class PersonDAOTests {
 		addressTransient2.setPerson(personTransient);
 		addressTransient3.setPerson(personTransient);
 
-		Occasion occasionTransient1 = TestUtils.getOccasionObject("deletePersonWithAllDetails");
-		Occasion occasionTransient2 = TestUtils.getOccasionObject("deletePersonWithAllDetails");
-		Occasion occasionTransient3 = TestUtils.getOccasionObject("deletePersonWithAllDetails");
+		Occasion occasionTransient1 = TestUtils.getOccasionObject();
+		Occasion occasionTransient2 = TestUtils.getOccasionObject();
+		Occasion occasionTransient3 = TestUtils.getOccasionObject();
 		personTransient.getOccasionList().add(occasionTransient1);
 		personTransient.getOccasionList().add(occasionTransient2);
 		personTransient.getOccasionList().add(occasionTransient3);
@@ -183,15 +182,15 @@ public class PersonDAOTests {
 	@Ignore
 	@Test
 	public void deletePersonWithOneAddressOcasion() {
-		Person personTransient = TestUtils.getPersonObject("deletePersonWithOneAddressOcasion");
+		Person personTransient = TestUtils.getPersonObject();
 
-		Image imageTransient = TestUtils.getImageObject("deletePersonWithOneAddressOcasion", "D:\\images\\image1.jpg");
+		Image imageTransient = TestUtils.getImageObject("D:\\images\\image1.jpg");
 		personTransient.setImage(imageTransient);
 		imageTransient.setPerson(personTransient);
 
-		Address addressTransient1 = TestUtils.getAddressObject("deletePersonWithOneAddressOcasion");
-		Address addressTransient2 = TestUtils.getAddressObject("deletePersonWithOneAddressOcasion");
-		Address addressTransient3 = TestUtils.getAddressObject("deletePersonWithOneAddressOcasion");
+		Address addressTransient1 = TestUtils.getAddressObject();
+		Address addressTransient2 = TestUtils.getAddressObject();
+		Address addressTransient3 = TestUtils.getAddressObject();
 		personTransient.getAddressList().add(addressTransient1);
 		personTransient.getAddressList().add(addressTransient2);
 		personTransient.getAddressList().add(addressTransient3);
@@ -199,9 +198,9 @@ public class PersonDAOTests {
 		addressTransient2.setPerson(personTransient);
 		addressTransient3.setPerson(personTransient);
 
-		Occasion occasionTransient1 = TestUtils.getOccasionObject("deletePersonWithOneAddressOcasion");
-		Occasion occasionTransient2 = TestUtils.getOccasionObject("deletePersonWithOneAddressOcasion");
-		Occasion occasionTransient3 = TestUtils.getOccasionObject("deletePersonWithOneAddressOcasion");
+		Occasion occasionTransient1 = TestUtils.getOccasionObject();
+		Occasion occasionTransient2 = TestUtils.getOccasionObject();
+		Occasion occasionTransient3 = TestUtils.getOccasionObject();
 		personTransient.getOccasionList().add(occasionTransient1);
 		personTransient.getOccasionList().add(occasionTransient2);
 		personTransient.getOccasionList().add(occasionTransient3);
@@ -230,7 +229,7 @@ public class PersonDAOTests {
 	@Ignore
 	@Test
 	public void createPerson() {
-		Person personTransient = TestUtils.getPersonObject("createPerson");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersisted = personDAO.save(personTransient);
 
 		assertNotNull(personPersisted);
@@ -240,8 +239,8 @@ public class PersonDAOTests {
 	@Ignore
 	@Test
 	public void createPersonWithImage() {
-		Person personTransient = TestUtils.getPersonObject("createPersonWithImage");
-		Image imageTransient = TestUtils.getImageObject("createPersonWithImage", "D:\\images\\image1.jpg");
+		Person personTransient = TestUtils.getPersonObject();
+		Image imageTransient = TestUtils.getImageObject("D:\\images\\image1.jpg");
 		imageTransient.setPerson(personTransient);
 		personTransient.setImage(imageTransient);
 		Person personPersisted = personDAO.save(personTransient);
@@ -255,8 +254,8 @@ public class PersonDAOTests {
 	@Ignore
 	@Test
 	public void deleteImageFromPerson() {
-		Person personTransient = TestUtils.getPersonObject("deleteImageFromPerson");
-		Image imageTransient = TestUtils.getImageObject("deleteImageFromPerson", "D:\\images\\image1.jpg");
+		Person personTransient = TestUtils.getPersonObject();
+		Image imageTransient = TestUtils.getImageObject( "D:\\images\\image1.jpg");
 		imageTransient.setPerson(personTransient);
 		personTransient.setImage(imageTransient);
 		Person personPersisted = personDAO.save(personTransient);
@@ -276,8 +275,8 @@ public class PersonDAOTests {
 	@Ignore
 	@Test
 	public void deletePersonWithImage() {
-		Person personTransient = TestUtils.getPersonObject("deletePersonWithImage");
-		Image imageTransient = TestUtils.getImageObject("deletePersonWithImage", "D:\\images\\image1.jpg");
+		Person personTransient = TestUtils.getPersonObject();
+		Image imageTransient = TestUtils.getImageObject( "D:\\images\\image1.jpg");
 		imageTransient.setPerson(personTransient);
 		personTransient.setImage(imageTransient);
 		Person personPersisted = personDAO.save(personTransient);
@@ -293,7 +292,7 @@ public class PersonDAOTests {
 	@Ignore
 	@Test
 	public void createPersonDOBEmpty() {
-		Person personTransient = TestUtils.getPersonObject("createPersonDOBEmpty");
+		Person personTransient = TestUtils.getPersonObject();
 		personTransient.setDob(null);
 		Person personPersisted = personDAO.save(personTransient);
 
@@ -304,7 +303,7 @@ public class PersonDAOTests {
 	@Ignore
 	@Test
 	public void findPersonById() {
-		Person personTransient = TestUtils.getPersonObject("findPersonById");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersisted = personDAO.save(personTransient);
 
 		Person personFromDB = personDAO.findOne(personPersisted.getId());
@@ -319,7 +318,7 @@ public class PersonDAOTests {
 	@Ignore
 	@Test
 	public void updatePerson() {
-		Person personTransient = TestUtils.getPersonObject("updatePerson");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersisted = personDAO.save(personTransient);
 
 		Person personFromDB = personDAO.findOne(personPersisted.getId());
@@ -337,7 +336,7 @@ public class PersonDAOTests {
 	@Ignore
 	@Test
 	public void deletePerson() {
-		Person personTransient = TestUtils.getPersonObject("updatePerson");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersisted = personDAO.save(personTransient);
 		personDAO.delete(personPersisted.getId());
 		log.info("Deleting Person " + personPersisted.getId());
@@ -358,7 +357,7 @@ public class PersonDAOTests {
 	@Ignore
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void createPersonWithInvalidEmailId() {
-		Person personTransient = TestUtils.getPersonObject("createPersonWithInvalidEmailId");
+		Person personTransient = TestUtils.getPersonObject();
 		personTransient.setEmailId("EmailId");
 		personTransient.setAlternateEmailId("AlternateEmailId");
 		personDAO.save(personTransient);
@@ -367,7 +366,7 @@ public class PersonDAOTests {
 	@Ignore
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void createPersonWithInvalidPhoneNumber() {
-		Person personTransient = TestUtils.getPersonObject("createPersonWithInvalidPhoneNumber");
+		Person personTransient = TestUtils.getPersonObject();
 		personTransient.setPhoneNumber(9111145678904324324L);
 		personTransient.setAlternatePhoneNumber(912224567890432434L);
 		personDAO.save(personTransient);
@@ -376,7 +375,7 @@ public class PersonDAOTests {
 	@Ignore
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void createPersonInvalidFirstNameEmpty() {
-		Person personTransient = TestUtils.getPersonObject("createPersonInvalidFirstNameEmpty");
+		Person personTransient = TestUtils.getPersonObject();
 		personTransient.setFirstName("");
 		personDAO.save(personTransient);
 	}
@@ -384,7 +383,7 @@ public class PersonDAOTests {
 	@Ignore
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void createPersonInvalidDOB() {
-		Person personTransient = TestUtils.getPersonObject("createPersonInvalidDOB");
+		Person personTransient = TestUtils.getPersonObject();
 		personTransient.setDob(Date.valueOf(LocalDate.of(2020, Month.FEBRUARY, 28)));
 		personDAO.save(personTransient);
 	}

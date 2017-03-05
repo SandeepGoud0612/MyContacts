@@ -47,9 +47,9 @@ public class AddressDAOTests {
 	@Ignore
 	@Test
 	public void createAddress() {
-		Person personTransient = TestUtils.getPersonObject("createAddress");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersisted = personDAO.save(personTransient);
-		Address addressTransient = TestUtils.getAddressObject("createAddress");
+		Address addressTransient = TestUtils.getAddressObject();
 		addressTransient.setPerson(personPersisted);
 		Address addressPersisted = addressDAO.save(addressTransient);
 		assertNotNull(addressPersisted);
@@ -59,9 +59,9 @@ public class AddressDAOTests {
 	@Ignore
 	@Test
 	public void updateAddress() {
-		Person personTransient = TestUtils.getPersonObject("updateAddress");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersisted = personDAO.save(personTransient);
-		Address addressTransient = TestUtils.getAddressObject("updateAddress");
+		Address addressTransient = TestUtils.getAddressObject();
 		addressTransient.setPerson(personPersisted);
 		Address addressPersisted = addressDAO.save(addressTransient);
 
@@ -78,9 +78,9 @@ public class AddressDAOTests {
 	@Ignore
 	@Test
 	public void createAddressWithOutAddressLine2() {
-		Person personTransient = TestUtils.getPersonObject("createAddresWithOutAddressLine2");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersisted = personDAO.save(personTransient);
-		Address addressTransient = TestUtils.getAddressObject("createAddresWithOutAddressLine2");
+		Address addressTransient = TestUtils.getAddressObject();
 		addressTransient.setPerson(personPersisted);
 		addressTransient.setAddressLine2(null);
 		Address addressPersisted = addressDAO.save(addressTransient);
@@ -102,9 +102,9 @@ public class AddressDAOTests {
 	@Ignore
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void createAddressLine1Empty() {
-		Person personTransient = TestUtils.getPersonObject("createAddressLine1Empty");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersisted = personDAO.save(personTransient);
-		Address addressTransient = TestUtils.getAddressObject("createAddressLine1Empty");
+		Address addressTransient = TestUtils.getAddressObject();
 		addressTransient.setPerson(personPersisted);
 		addressTransient.setAddressLine1(null);
 		addressDAO.save(addressTransient);
@@ -113,9 +113,9 @@ public class AddressDAOTests {
 	@Ignore
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void createCityWithMoreThanMax() {
-		Person personTransient = TestUtils.getPersonObject("createCityWithMoreThanMax");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersisted = personDAO.save(personTransient);
-		Address addressTransient = TestUtils.getAddressObject("createCityWithMoreThanMax");
+		Address addressTransient = TestUtils.getAddressObject();
 		addressTransient.setPerson(personPersisted);
 		addressTransient.setCity(
 				"olyxnbhbrgwogixciddtwahlphrrpmjjtghjprxbcvyoqhwgrctpipfirhdmuhpfovifcwccstkvqznpxrsldtmjekoduzuzhhiaebxhsub");
@@ -125,9 +125,9 @@ public class AddressDAOTests {
 	@Ignore
 	@Test
 	public void findAddressById() {
-		Person personTransient = TestUtils.getPersonObject("addressFromDB");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersisted = personDAO.save(personTransient);
-		Address addressTransient = TestUtils.getAddressObject("addressFromDB");
+		Address addressTransient = TestUtils.getAddressObject();
 		addressTransient.setPerson(personPersisted);
 		Address addressPersisted = addressDAO.save(addressTransient);
 		Address addressFromDB = addressDAO.findOne(addressPersisted.getId());
@@ -139,9 +139,9 @@ public class AddressDAOTests {
 	@Ignore
 	@Test
 	public void deleteAddressById() {
-		Person personTransient = TestUtils.getPersonObject("deleteAddressById");
+		Person personTransient = TestUtils.getPersonObject();
 		Person personPersisted = personDAO.save(personTransient);
-		Address addressTransient = TestUtils.getAddressObject("deleteAddressById");
+		Address addressTransient = TestUtils.getAddressObject();
 		addressTransient.setPerson(personPersisted);
 		Address addressPersisted = addressDAO.save(addressTransient);
 		addressDAO.delete(addressPersisted.getId());
