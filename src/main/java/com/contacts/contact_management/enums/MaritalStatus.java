@@ -9,7 +9,7 @@ package com.contacts.contact_management.enums;
  */
 public enum MaritalStatus {
 	
-	Married("married"), Single("single");
+	Select("select"),Married("married"), Single("single");
 	
 	private final String maritalStatus;
 	

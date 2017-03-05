@@ -17,6 +17,7 @@ public class CopyObjects {
 		dbPerson.setLastName(uiPerson.getLastName());
 		dbPerson.setDob(uiPerson.getDob());
 		dbPerson.setGender(uiPerson.getGender());
+		dbPerson.setMaritalStatus(uiPerson.getMaritalStatus());
 		dbPerson.setEmailId(uiPerson.getEmailId());
 		dbPerson.setAlternateEmailId(uiPerson.getAlternateEmailId());
 		dbPerson.setPhoneNumber(uiPerson.getPhoneNumber());
