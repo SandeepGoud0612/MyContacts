@@ -9,6 +9,8 @@ import com.contacts.contact_management.model.Address;
 import com.contacts.contact_management.model.Image;
 import com.contacts.contact_management.model.Occasion;
 import com.contacts.contact_management.model.Person;
+import com.contacts.utils.MyLogger;
+import org.apache.log4j.Logger;
 
 public class CopyObjects {
 
@@ -22,11 +24,6 @@ public class CopyObjects {
 		dbPerson.setAlternateEmailId(uiPerson.getAlternateEmailId());
 		dbPerson.setPhoneNumber(uiPerson.getPhoneNumber());
 		dbPerson.setAlternatePhoneNumber(uiPerson.getAlternatePhoneNumber());
-		for (int i = 0; i < dbPerson.getAddressList().size(); i++) {
-			Address sourceAddress = uiPerson.getAddressList().get(i);
-			Address destinationAddress = getDestinationAddress(sourceAddress, dbPerson.getAddressList());
-			copyAddress(sourceAddress, destinationAddress);
-		}
 
 		if (!CollectionUtils.isEmpty(uiPerson.getOccasionList())) {
 			if (uiPerson.getOccasionList().size() == dbPerson.getOccasionList().size()) {
@@ -37,8 +34,52 @@ public class CopyObjects {
 				deleteOccasionFromOccasionList(uiPerson.getOccasionList(), dbPerson.getOccasionList());
 			}
 		}
+		if (!CollectionUtils.isEmpty(uiPerson.getAddressList())) {
+			if (uiPerson.getAddressList().size() == dbPerson.getAddressList().size()) {
+				updateAddressList(uiPerson.getAddressList(), dbPerson.getAddressList());
+			} else if (uiPerson.getAddressList().size() > dbPerson.getAddressList().size()) {
+				addAddressInAddressList(uiPerson.getAddressList(), dbPerson.getAddressList(), dbPerson);
+			} else {
+				deleteAddressFromAddressList(uiPerson.getAddressList(), dbPerson.getAddressList());
+			}
+		}
 		// copyImage(destinationPerson.getImage(),sourcePerson.getImage());
 		return dbPerson;
+	}
+
+	private static void updateAddressList(List<Address> uiAddressList, List<Address> dbAddressList) {
+		for (int i = 0; i < uiAddressList.size(); i++) {
+			Address uiAddress = uiAddressList.get(i);
+			Address dbAddress = dbAddressList.stream().filter(address -> address.getId().equals(uiAddress.getId()))
+					.collect(Collectors.toList()).get(0);
+			copyAddress(uiAddress, dbAddress);
+		}
+	}
+
+	private static void addAddressInAddressList(List<Address> uiAddressList, List<Address> dbAddressList,
+			Person dbPerson) {
+		for (int i = 0; i < uiAddressList.size(); i++) {
+			Address uiAddress = uiAddressList.get(i);
+			List<Address> dbAddress = dbAddressList.stream()
+					.filter(address -> address.getId().equals(uiAddress.getId())).collect(Collectors.toList());
+			if (CollectionUtils.isEmpty(dbAddress)) {
+				uiAddress.setPerson(dbPerson);
+				dbAddressList.add(uiAddress);
+				break;
+			}
+		}
+	}
+
+	private static void deleteAddressFromAddressList(List<Address> uiAddressList, List<Address> dbAddressList) {
+		for (int i = 0; i < dbAddressList.size(); i++) {
+			Address dbAddress = dbAddressList.get(i);
+			List<Address> uiAddress = uiAddressList.stream()
+					.filter(address -> address.getId().equals(dbAddress.getId())).collect(Collectors.toList());
+			if (CollectionUtils.isEmpty(uiAddress)) {
+				dbAddressList.set(i, null);
+				break;
+			}
+		}
 	}
 
 	private static void updateOccationList(List<Occasion> uiOccasionList, List<Occasion> dbOccasionList) {
@@ -51,7 +92,8 @@ public class CopyObjects {
 		}
 	}
 
-	private static void addOccasionInOccasionList(List<Occasion> uiOccasionList, List<Occasion> dbOccasionList, Person dbPerson) {
+	private static void addOccasionInOccasionList(List<Occasion> uiOccasionList, List<Occasion> dbOccasionList,
+			Person dbPerson) {
 		for (int i = 0; i < uiOccasionList.size(); i++) {
 			Occasion uiOccasion = uiOccasionList.get(i);
 			List<Occasion> dbOccasions = dbOccasionList.stream()
@@ -74,11 +116,6 @@ public class CopyObjects {
 				break;
 			}
 		}
-	}
-
-	private static Address getDestinationAddress(Address sourceAddress, List<Address> destinationAddressList) {
-		return destinationAddressList.stream().filter(address -> address.getId().equals(sourceAddress.getId()))
-				.collect(Collectors.toList()).get(0);
 	}
 
 	public static Address copyAddress(final Address sourceAddress, final Address destinationAddress) {
