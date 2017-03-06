@@ -35,8 +35,8 @@ public class PersonController {
 	private PersonService personService;
 
 	@RequestMapping(value = "/searchcriteria", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Person>> getAllPersonsBySearchCriteria(
-			@RequestBody final PersonSearchCriteria personSearchCriteria) {
+	public ResponseEntity<List<Person>> getAllPersonsBySearchCriteria(@RequestBody final PersonSearchCriteria personSearchCriteria)
+	{
 		List<Person> persons = personService.getAllPersonsBySearchCriteria(personSearchCriteria);
 		return new ResponseEntity<List<Person>>(persons, HttpStatus.OK);
 	}
