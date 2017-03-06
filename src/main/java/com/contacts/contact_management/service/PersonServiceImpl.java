@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.contacts.contact_management.dao.PersonDAO;
+import com.contacts.contact_management.dao.PersonDAOCustom;
 import com.contacts.contact_management.model.Person;
+import com.contacts.contact_management.model.PersonSearchCriteria;
 import com.contacts.utils.MyLogger;
 
 /**
@@ -27,6 +29,9 @@ public class PersonServiceImpl implements PersonService {
 	
 	@Autowired
 	private PersonDAO personDAO;
+	
+	@Autowired
+	private PersonDAOCustom personDAOCustom;
 
 	@Override
 	public Person getPersonById(final Long id) {
@@ -57,6 +62,12 @@ public class PersonServiceImpl implements PersonService {
 		log.info("in deletePerson method");
 		personDAO.delete(id);
 		
+	}
+
+	@Override
+	public List<Person> getAllPersonsBySearchCriteria(PersonSearchCriteria personSearchCriteria) {
+		log.info("in getAllPersonsBySearchCriteria method");
+		return personDAOCustom.getAllPersonsBySearchCriteria(personSearchCriteria);
 	}
 
 }

@@ -6,12 +6,20 @@ package com.contacts.contact_management.service;
 import java.util.List;
 
 import com.contacts.contact_management.model.Person;
+import com.contacts.contact_management.model.PersonSearchCriteria;
 
 /**
  * @author Sandeep
  *
  */
 public interface PersonService {
+	
+	/**
+	 * Gets all persons by search criteria.
+	 * 
+	 * @return List<Person>
+	 */
+	List<Person> getAllPersonsBySearchCriteria(PersonSearchCriteria personSearchCriteria);
 	
 	/**
 	 * Gets the Person by Id.

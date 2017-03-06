@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.contacts.contact_management.model.Person;
+import com.contacts.contact_management.model.PersonSearchCriteria;
 import com.contacts.contact_management.service.PersonService;
 import com.contacts.utils.CopyObjects;
 
@@ -33,13 +34,20 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 
+	@RequestMapping(value = "/searchcriteria", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Person>> getAllPersonsBySearchCriteria(
+			@RequestBody final PersonSearchCriteria personSearchCriteria) {
+		List<Person> persons = personService.getAllPersonsBySearchCriteria(personSearchCriteria);
+		return new ResponseEntity<List<Person>>(persons, HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Person> getPersonById(@PathVariable final Long id) {
 		Person person = personService.getPersonById(id);
 		person.setImage(null);
 		return new ResponseEntity<Person>(person, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/personaldetails/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Person> getPersonWithPersonalDetailsOnlyById(@PathVariable final Long id) {
 		Person person = personService.getPersonById(id);
@@ -54,14 +62,14 @@ public class PersonController {
 		personService.deletePerson(id);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Person>> getAllPersons() {
-		List<Person> persons = personService.getAllPersons();		
+		List<Person> persons = personService.getAllPersons();
 		return new ResponseEntity<List<Person>>(persons, HttpStatus.OK);
 	}
 
-	@RequestMapping(value="/personaldetails",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/personaldetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Person>> getAllPersonsWithPersonalDetailsOnly() {
 		List<Person> persons = personService.getAllPersons();
 		persons.stream().forEach(person -> {
