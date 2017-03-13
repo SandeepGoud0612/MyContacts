@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.contacts.contact_management.dao.OccasionDAO;
+import com.contacts.contact_management.dao.OccasionDAOCustom;
 import com.contacts.contact_management.model.Occasion;
 import com.contacts.utils.MyLogger;
 
@@ -27,6 +28,9 @@ public class OccasionServiceImpl implements OccasionService {
 
 	@Autowired
 	private OccasionDAO occasionDAO;
+	
+	@Autowired
+	private OccasionDAOCustom occasionDAOCustom;
 
 	@Override
 	public Occasion getOccasionById(final Long id) {
@@ -56,6 +60,11 @@ public class OccasionServiceImpl implements OccasionService {
 	public void deleteOccasion(final Long id) {
 		log.info("In deleteOccasion method");
 		occasionDAO.delete(id);
+	}
+	@Override
+	public List<Occasion> getAllOccasionsByCurrentDate() {
+		log.info("in getAllOccasionsByDate method");
+		return occasionDAOCustom.getAllOccasionsByCurrentDate();
 	}
 
 }

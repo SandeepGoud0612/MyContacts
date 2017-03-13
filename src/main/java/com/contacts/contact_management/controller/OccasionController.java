@@ -3,6 +3,7 @@
  */
 package com.contacts.contact_management.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,22 @@ public class OccasionController {
 
 	@Autowired
 	private OccasionService occasionService;
+	
+	/**
+	 * Web service to return occasion as json.
+	 * 
+	 * @param id
+	 * @return ResponseEntity<Occasion>
+	 */
+	@RequestMapping(value = "/occasionByCurrentDate", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<String>> getAllOccasionsByCurrentDate() {
+		List<String> occasionsForCurretDate = new ArrayList<>();
+		for (Occasion occasion : occasionService.getAllOccasionsByCurrentDate()) {
+			occasionsForCurretDate.add(occasion.getPerson().getFirstName() + " "+ occasion.getPerson().getLastName()+" -  " + occasion.getName());
+		}
+		return new ResponseEntity<List<String>>(occasionsForCurretDate, HttpStatus.OK);
+	}
+
 
 	/**
 	 * Web service to return occasion as json.
