@@ -26,7 +26,7 @@ import com.contacts.utils.CopyObjects;
  *
  */
 @RestController
-@RequestMapping(value = "/persons")
+@RequestMapping(value = "/person")
 @CrossOrigin
 public class PersonController {
 
