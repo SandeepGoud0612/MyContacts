@@ -1,42 +1,54 @@
 package com.contacts.notification_management.service;
 
-import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.contacts.contact_management.model.Occasion;
+import com.contacts.contact_management.service.OccasionService;
+import com.contacts.utils.MyLogger;
+
 @Component
+@PropertySource("classpath:mail.properties")
 public class EmilService {
-	
-	private static final Logger log = LoggerFactory.getLogger(EmilService.class);
 
-	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-	
-	//@Scheduled(fixedRate = 5000)
-	public void invoke() {
-		log.info("The time is now {}", dateFormat.format(new Date()));
-		//prepareAndSend();
-	}
-	
+	private Logger log = MyLogger.getLogger();
+
+	@Autowired
 	private JavaMailSender mailSender;
-	 
-    @Autowired
-    public EmilService(JavaMailSender mailSender) {
-        this.mailSender = mailSender;
-    }
-	
-	public void prepareAndSend() {
-		SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("foo@example.com");
-        message.setTo("sandeepgoud0612@gmail.com");
-        message.setSubject("hello");
-        mailSender.send(message);
-	}
 
+	@Autowired
+	private OccasionService occasionService;
+
+	@Value("${mail.to}")
+	private String toAddress;
+
+	@Scheduled(cron = "0 0 20 * * *")
+	public void sendOccasionsRemainderMail() {
+		log.info("Sending email");
+
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(toAddress);
+		message.setSubject("Occasions on :: " + Date.from(Instant.now()));
+
+		StringBuilder builder = new StringBuilder("");
+		for (Occasion occasion : occasionService.getAllOccasionsByCurrentDate()) {
+			builder.append("Name :: " + occasion.getPerson().getFirstName() + " " + occasion.getPerson().getLastName() + "  Occasion :: " + occasion.getName());
+			builder.append("\r\n");
+			builder.append("\r\n");
+		}
+
+		message.setText(builder.toString());
+		mailSender.send(message);
+		log.info("Email sent");
+	}
 
 }
