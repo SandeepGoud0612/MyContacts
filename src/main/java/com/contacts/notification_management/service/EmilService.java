@@ -31,7 +31,7 @@ public class EmilService {
 	@Value("${mail.to}")
 	private String toAddress;
 
-	@Scheduled(cron = "0 0 20 * * *")
+	@Scheduled(cron = "0 0 5 * * *")
 	public void sendOccasionsRemainderMail() {
 		log.info("Sending email");
 
